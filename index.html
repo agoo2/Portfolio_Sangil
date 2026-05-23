@@ -1,0 +1,2090 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portfolio – Sangil Na (나상일)</title>
+<style>
+  :root {
+    --navy: #1a2744;
+    --red:  #c0392b;
+    --mid:  #2c3e50;
+    --gray: #7f8c8d;
+    --light:#f5f6fa;
+    --white:#ffffff;
+    --border:#e0e4ec;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:'Segoe UI',Arial,sans-serif; color:#2d2d2d; background:#f0f2f8; }
+
+  /* ── NAV ── */
+  nav {
+    position:fixed; top:0; width:100%; background:var(--navy);
+    z-index:100; display:flex; justify-content:space-between;
+    align-items:center; padding:12px 48px;
+  }
+  nav .brand { color:var(--white); font-size:1.1rem; font-weight:700; letter-spacing:1px; }
+  nav ul { list-style:none; display:flex; gap:28px; }
+  nav ul a { color:#cdd2e0; text-decoration:none; font-size:.85rem; letter-spacing:.5px;
+    transition:color .2s; }
+  nav ul a:hover { color:var(--white); }
+
+  /* ── HERO ── */
+  #hero {
+    background: linear-gradient(135deg, var(--navy) 0%, #243b6e 60%, #1e3a5f 100%);
+    color:var(--white); padding:140px 48px 80px;
+  }
+  .hero-inner {
+    display:flex; align-items:flex-start; justify-content:space-between;
+    gap:40px; max-width:1080px; margin:0 auto; margin-bottom:28px;
+  }
+  .hero-text { flex:1; text-align:left; }
+  .hero-photo { flex-shrink:0; }
+  .hero-photo img {
+    width:160px; height:auto;
+    border-radius:8px; border:3px solid rgba(255,255,255,.3);
+    box-shadow:0 6px 24px rgba(0,0,0,.35);
+    display:block;
+  }
+  #hero h1 { font-size:3.2rem; font-weight:800; letter-spacing:2px; margin-bottom:8px; }
+  #hero h2 { font-size:1.25rem; color:#8fa8d4; font-weight:400; margin-bottom:32px; }
+  .contact-row { display:flex; justify-content:flex-start; gap:32px; flex-wrap:wrap; margin-bottom:0; }
+  .contact-row span { font-size:.9rem; color:#c9d4e8; }
+  .contact-row span::before { margin-right:6px; }
+  .hero-tags {
+    display:flex; justify-content:flex-start; gap:12px; flex-wrap:nowrap;
+    max-width:1080px; margin:0 auto;
+  }
+  .tag {
+    background:rgba(255,255,255,.12); border:1px solid rgba(255,255,255,.25);
+    color:#dce6f5; padding:6px 16px; border-radius:20px; font-size:.8rem;
+    letter-spacing:.5px; white-space:nowrap;
+  }
+  @media(max-width:700px){
+    .hero-inner { flex-direction:column; align-items:center; }
+    .hero-text { text-align:center; }
+    .contact-row { justify-content:center; }
+    .hero-tags { flex-wrap:wrap; justify-content:center; }
+    .hero-photo { order:-1; }
+  }
+  .tag {
+    background:rgba(255,255,255,.12); border:1px solid rgba(255,255,255,.25);
+    color:#dce6f5; padding:6px 16px; border-radius:20px; font-size:.8rem; letter-spacing:.5px;
+  }
+
+  /* ── LAYOUT ── */
+  .wrapper { max-width:1080px; margin:0 auto; padding:60px 24px; }
+  section {
+    margin-bottom:40px;
+    border:1px solid var(--border);
+    border-radius:12px;
+    padding:28px 32px;
+    background:var(--white);
+    box-shadow:0 2px 10px rgba(0,0,0,.05);
+  }
+  .section-title {
+    font-size:1.5rem; font-weight:800; color:var(--navy);
+    border-left:5px solid var(--red); padding-left:16px;
+    margin-bottom:36px; letter-spacing:.5px;
+  }
+
+  /* ── TIMELINE ENTRY ── */
+  .timeline { position:relative; padding-left:28px; }
+  .timeline::before {
+    content:''; position:absolute; left:7px; top:8px; bottom:0;
+    width:2px; background:var(--border);
+  }
+  .tl-item { position:relative; margin-bottom:36px; }
+  .tl-item::before {
+    content:''; position:absolute; left:-25px; top:7px;
+    width:12px; height:12px; background:var(--red); border-radius:50%;
+    border:2px solid var(--white); box-shadow:0 0 0 2px var(--red);
+  }
+  .tl-header { display:flex; justify-content:space-between; align-items:flex-start;
+    flex-wrap:wrap; gap:8px; margin-bottom:4px; }
+  .tl-org { font-size:1.05rem; font-weight:700; color:var(--navy); }
+  .tl-period { font-size:.82rem; color:var(--red); font-style:italic; white-space:nowrap; }
+  .tl-role { font-size:.9rem; color:var(--gray); margin-bottom:10px; }
+  .tl-body ul { padding-left:18px; }
+  .tl-body li { font-size:.88rem; line-height:1.7; color:#444; margin-bottom:4px; }
+  .tl-body li strong { color:var(--mid); }
+
+  /* ── CARDS (projects) ── */
+  .card-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:24px; }
+  .card {
+    background:var(--white); border-radius:10px; padding:0;
+    box-shadow:0 2px 12px rgba(0,0,0,.07); overflow:hidden;
+    transition:transform .2s, box-shadow .2s;
+  }
+  .card:hover { transform:translateY(-4px); box-shadow:0 8px 24px rgba(0,0,0,.12); }
+  .card-title {
+    font-size:.92rem; font-weight:700; color:var(--white); line-height:1.5;
+    background:var(--navy);
+    padding:14px 20px 12px;
+    text-align:center;
+  }
+  .card-meta { font-size:.78rem; color:var(--red); margin-bottom:8px; padding:12px 20px 0; }
+  .card-org { font-size:.8rem; color:var(--gray); margin-bottom:10px; padding:14px 20px 0; }
+  .card-body { font-size:.82rem; line-height:1.65; color:#555; padding:0 20px 20px; }
+  .card-body li { margin-left:16px; margin-bottom:3px; }
+  .badge {
+    display:inline-block; padding:2px 10px; border-radius:12px; font-size:.72rem;
+    font-weight:600; margin-right:6px; margin-bottom:6px;
+  }
+  .badge-scie  { background:#e8f4fd; color:#2980b9; }
+  .badge-kci   { background:#eafaf1; color:#27ae60; }
+  .badge-conf  { background:#fdf2e9; color:#e67e22; }
+  .badge-pub   { background:#f5eef8; color:#8e44ad; }
+  .badge-sub   { background:#fef9e7; color:#d4a017; }
+  .badge-1st   { background:#fdecea; color:#c0392b; }
+
+  /* ── PUB LIST ── */
+  .pub-section { margin-bottom:28px; }
+  .pub-section-title {
+    font-size:.9rem; font-weight:700; color:var(--white);
+    background:var(--navy); padding:6px 14px; border-radius:4px;
+    display:inline-block; margin-bottom:14px;
+  }
+  .pub-item { background:var(--white); border-radius:8px; padding:16px 20px;
+    margin-bottom:10px; box-shadow:0 1px 6px rgba(0,0,0,.06);
+    border-left:4px solid var(--border); }
+  .pub-item.highlight { border-left-color:var(--red); }
+  .pub-text { font-size:.84rem; line-height:1.7; color:#444; }
+  .pub-text em { font-style:italic; color:var(--gray); }
+  .pub-text strong { color:var(--navy); }
+
+  /* ── IP TABLE ── */
+  .ip-table { width:100%; border-collapse:collapse; background:var(--white);
+    border-radius:10px; overflow:hidden; box-shadow:0 2px 12px rgba(0,0,0,.07); }
+  .ip-table th { background:#243b6e; color:var(--white); padding:12px 16px;
+    font-size:.82rem; text-align:left; }
+  .ip-table td { padding:12px 16px; font-size:.82rem; border-bottom:1px solid var(--border);
+    vertical-align:top; }
+  .ip-table tr:last-child td { border-bottom:none; }
+  .ip-table tr:hover td { background:#f8f9fe; }
+  .status-reg { color:#27ae60; font-weight:600; }
+  .status-pen { color:#e67e22; font-weight:600; }
+
+  /* ── CV TABLE (Experience, Education, Publications) ── */
+  .cv-table { width:100%; border-collapse:collapse; background:var(--white);
+    border-radius:10px; overflow:hidden; box-shadow:0 2px 12px rgba(0,0,0,.07);
+    margin-bottom:28px; }
+  .cv-table th { background:#243b6e; color:var(--white); padding:12px 16px;
+    font-size:.82rem; text-align:left; font-weight:700; }
+  .cv-table td { padding:13px 16px; font-size:.82rem; border-bottom:1px solid var(--border);
+    vertical-align:top; line-height:1.65; color:#444; }
+  .cv-table tr:last-child td { border-bottom:none; }
+  .cv-table tr:hover td { background:#f8f9fe; }
+  .cv-table .td-period { white-space:nowrap; color:var(--red); font-style:italic; font-size:.8rem; }
+  .cv-table .td-org { font-weight:700; color:var(--navy); font-size:.88rem; }
+  .cv-table .td-sub { color:var(--gray); font-size:.78rem; line-height:1.5; }
+  .cv-table .td-gpa { font-weight:700; color:var(--navy); white-space:nowrap; }
+  .cv-table ul { padding-left:16px; margin:4px 0; }
+  .cv-table li { margin-bottom:4px; line-height:1.65; }
+  /* ── 2-col card grid for Research Projects ── */
+  .card-grid-2col { grid-template-columns:repeat(2,1fr) !important; }
+  @media(max-width:700px){ .card-grid-2col { grid-template-columns:1fr !important; } }
+  /* ── 3-col skills grid ── */
+  .skills-grid-3col { grid-template-columns:repeat(3,1fr) !important; }
+  @media(max-width:900px){ .skills-grid-3col { grid-template-columns:repeat(2,1fr) !important; } }
+  @media(max-width:600px){ .skills-grid-3col { grid-template-columns:1fr !important; } }
+  /* pub table inside each pub-section */
+  .pub-table { width:100%; border-collapse:collapse; background:var(--white);
+    border-radius:10px; overflow:hidden; box-shadow:0 2px 12px rgba(0,0,0,.07);
+    margin-bottom:0; }
+  .pub-table th { background:#243b6e; color:var(--white); padding:10px 14px;
+    font-size:.78rem; text-align:left; font-weight:700; }
+  .pub-table td { padding:11px 14px; font-size:.81rem; border-bottom:1px solid var(--border);
+    vertical-align:top; line-height:1.7; color:#444; }
+  .pub-table tr:last-child td { border-bottom:none; }
+  .pub-table tr:hover td { background:#f8f9fe; }
+  .pub-table .td-badge { white-space:nowrap; }
+
+  /* ── SKILLS ── */
+  .skills-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); gap:20px; }
+  .skill-card { background:var(--white); border-radius:10px; padding:0;
+    box-shadow:0 2px 10px rgba(0,0,0,.06); overflow:hidden; }
+  .skill-card h4 { font-size:.85rem; font-weight:700; color:var(--white);
+    background:var(--navy); padding:11px 16px; margin-bottom:0; text-align:center; }
+  .skill-card ul { list-style:none; padding:12px 16px 14px; }
+  .skill-card li { font-size:.82rem; color:#555; padding:4px 0;
+    border-bottom:1px solid #f0f2f8; }
+  .skill-card li:last-child { border-bottom:none; }
+  .skill-card li .lv { font-size:.72rem; color:var(--gray); float:right; }
+
+  /* ── CERT ── */
+  .cert-row { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
+  .cert-item { background:var(--white); border-radius:10px; padding:0;
+    box-shadow:0 2px 10px rgba(0,0,0,.06); overflow:hidden; }
+  .cert-item .cert-name { font-size:.85rem; font-weight:700; color:var(--white);
+    background:var(--navy); padding:11px 16px; display:flex;
+    align-items:center; justify-content:center; text-align:center; }
+  .cert-item .cert-detail { font-size:.82rem; color:#555; padding:6px 16px 0;
+    border-bottom:1px solid #f0f2f8; display:block; }
+  .cert-item .cert-date { font-size:.82rem; color:#555; padding:4px 16px 12px; display:block; }
+
+  /* ── FOOTER ── */
+  footer { background:var(--navy); color:#8a9bbf; text-align:center;
+    padding:28px; font-size:.8rem; }
+  footer strong { color:var(--white); }
+
+  /* ── TAB BUTTONS ── */
+  .tab-buttons {
+    display:flex; flex-wrap:wrap; gap:10px;
+    margin-bottom:40px; align-items:center;
+  }
+  .tab-button {
+    padding:11px 32px; border-radius:6px; font-size:.92rem; font-weight:700;
+    letter-spacing:.5px; cursor:pointer;
+    border:2px solid var(--navy);
+    border-bottom:4px solid #b0bacc;
+    background:linear-gradient(170deg, #ffffff 0%, #eaecf5 100%);
+    color:var(--navy);
+    box-shadow:0 3px 8px rgba(26,39,68,.13), 0 1px 2px rgba(0,0,0,.06);
+    transition:all .18s ease;
+    position:relative;
+    user-select:none;
+  }
+  .tab-button:hover {
+    background:linear-gradient(170deg, #f4f6ff 0%, #dde1f0 100%);
+    box-shadow:0 5px 14px rgba(26,39,68,.18);
+    transform:translateY(-2px);
+    border-bottom-color:#8892b0;
+  }
+  .tab-button:active { transform:translateY(0); box-shadow:0 1px 4px rgba(26,39,68,.15); }
+  .tab-button.active {
+    background:var(--navy);
+    color:var(--white);
+    border-color:var(--navy);
+    border-bottom:4px solid var(--red);
+    box-shadow:0 5px 16px rgba(26,39,68,.30);
+    transform:translateY(-2px);
+  }
+
+  /* ── TAB CONTENT ── */
+  .tab-content { display:none; }
+  .tab-content.active { display:block; }
+
+  /* ── PORTFOLIO PLACEHOLDER ── */
+  .portfolio-section {
+    margin-bottom:40px;
+    border:1px solid var(--border);
+    border-radius:12px;
+    padding:28px 32px;
+    background:var(--white);
+    box-shadow:0 2px 10px rgba(0,0,0,.05);
+  }
+  .portfolio-section-title {
+    font-size:1.5rem; font-weight:800; color:var(--navy);
+    border-left:5px solid var(--red); padding-left:16px;
+    margin-bottom:24px; letter-spacing:.5px;
+  }
+  .portfolio-placeholder {
+    background:var(--white); border-radius:10px; padding:28px 32px;
+    box-shadow:0 2px 12px rgba(0,0,0,.07); border:2px dashed var(--border);
+    color:var(--gray); font-size:.9rem; line-height:1.8;
+  }
+  .portfolio-placeholder .placeholder-label {
+    font-size:.75rem; font-weight:700; color:var(--red); letter-spacing:.8px;
+    text-transform:uppercase; margin-bottom:8px;
+  }
+
+  /* ── PROJECT DETAIL ── */
+  .proj-header { background:var(--white); border-radius:10px; padding:24px 28px;
+    box-shadow:0 2px 12px rgba(0,0,0,.07); margin-bottom:28px;
+    border-left:5px solid var(--navy); }
+  .proj-meta-row { display:flex; flex-wrap:wrap; gap:10px 28px; margin-bottom:16px; }
+  .proj-meta-row span { font-size:.82rem; color:#555; }
+  .proj-meta-row span strong { color:var(--navy); margin-right:4px; }
+  .proj-abstract { font-size:.88rem; line-height:1.8; color:#444; }
+
+  /* ── PROJECT INFO TABLE ── */
+  .proj-info-table { width:100%; border-collapse:collapse; background:var(--white);
+    border-radius:10px; overflow:hidden; box-shadow:0 2px 12px rgba(0,0,0,.07);
+    margin-bottom:28px; }
+  .proj-info-table td { padding:11px 16px; font-size:.84rem; border-bottom:1px solid var(--border);
+    vertical-align:middle; line-height:1.7; color:#444; }
+  .proj-info-table tr:last-child td { border-bottom:none; }
+  .proj-info-table .pkey { width:68px; font-weight:700; color:var(--white);
+    background:var(--navy); white-space:nowrap; font-size:.78rem; letter-spacing:.3px; }
+  .proj-info-table tr.summary td { background:#f5f7fc; font-size:.84rem;
+    line-height:1.85; color:#333; }
+  .proj-info-table tr.summary .pkey { background:#243b6e; color:var(--white); }
+
+  .proj-subsection { margin-bottom:36px; }
+  .proj-sub-title { font-size:1rem; font-weight:700; color:var(--navy);
+    border-bottom:2px solid var(--red); padding-bottom:6px; margin-bottom:16px; }
+  .proj-body-text { font-size:.88rem; line-height:1.8; color:#444; margin-bottom:16px; }
+  .proj-role-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:16px; }
+  .proj-role-item { background:var(--light); border-radius:8px; padding:16px;
+    display:flex; gap:14px; align-items:flex-start; }
+  .proj-role-icon { width:34px; height:34px; background:var(--navy); color:var(--white);
+    border-radius:50%; display:flex; align-items:center; justify-content:center;
+    font-size:1.05rem; font-weight:800; flex-shrink:0; }
+  .proj-role-item strong { display:block; color:var(--navy); margin-bottom:4px; font-size:.88rem; }
+  .proj-role-item p { font-size:.82rem; line-height:1.6; color:#555; margin:0; }
+  .proj-img-wrap { margin-top:16px; }
+  .proj-img-wrap img { width:100%; border-radius:8px;
+    box-shadow:0 2px 12px rgba(0,0,0,.1); display:block; }
+  /* 높이 맞춤 이미지 (object-fit:contain으로 비율 유지) */
+  .img-h240 { height:240px; object-fit:contain; background:#f5f6fa; border-radius:8px; }
+  .img-h280 { height:280px; object-fit:contain; background:#f5f6fa; border-radius:8px; }
+  .proj-img-caption { font-size:.78rem; color:var(--gray); margin-top:8px; text-align:center; font-style:italic; }
+  .proj-img-grid-2 { display:grid; grid-template-columns:1fr 1fr; gap:20px; }
+  .proj-achievement-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; }
+  .proj-achievement-item { background:var(--navy); border-radius:10px; padding:20px;
+    text-align:center; color:var(--white); }
+  .proj-achievement-num { font-size:1.4rem; font-weight:800; margin-bottom:8px; color:#8fa8d4; }
+  .proj-achievement-label { font-size:.8rem; line-height:1.5; }
+
+  /* ── PROJECT STEP CARDS ── */
+  .proj-step-card { background:var(--white); border-radius:10px;
+    box-shadow:0 2px 14px rgba(0,0,0,.08); margin-bottom:20px; overflow:hidden;
+    border-top:5px solid var(--red); }
+  .proj-step-header { display:flex; align-items:center; gap:16px;
+    padding:14px 24px; background:var(--navy); }
+  .proj-step-num { width:34px; height:34px; background:var(--red); border-radius:50%;
+    color:var(--white); font-weight:800; font-size:.88rem; display:flex;
+    align-items:center; justify-content:center; flex-shrink:0; }
+  .proj-step-title { color:var(--white); font-size:1.08rem; font-weight:700; letter-spacing:.3px; }
+  .proj-step-title span { color:#8fa8d4; font-size:.8rem; font-weight:400; margin-left:8px; }
+  .proj-step-body { padding:24px; }
+  .proj-bullet-list { list-style:none; padding:0; margin:0; }
+  .proj-bullet-list li { display:flex; gap:10px; padding:8px 0;
+    font-size:.88rem; line-height:1.7; color:#444;
+    border-bottom:1px solid #f0f2f8; }
+  .proj-bullet-list li:last-child { border-bottom:none; }
+  .proj-bullet-list li::before { content:'▸'; color:var(--red);
+    font-size:.9rem; flex-shrink:0; margin-top:2px; }
+  .proj-tech-section { margin-bottom:16px; }
+  .proj-tech-label { font-size:.75rem; font-weight:700; color:var(--gray);
+    text-transform:uppercase; letter-spacing:.7px; margin-bottom:8px; }
+  .proj-tech-grid { display:flex; flex-wrap:wrap; gap:8px; }
+  .proj-tech-tag { background:var(--light); border:1px solid var(--border);
+    color:var(--navy); padding:5px 14px; border-radius:16px;
+    font-size:.8rem; font-weight:600; }
+  .proj-tech-tag.highlight { background:var(--navy); color:var(--white); border-color:var(--navy); }
+  .proj-learn-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); gap:16px; }
+  .proj-learn-item { background:var(--light); border-radius:8px; padding:18px;
+    border-left:3px solid var(--red); }
+  .proj-learn-item strong { display:block; color:var(--navy); font-size:.88rem; margin-bottom:6px; }
+  .proj-learn-item p { font-size:.82rem; color:#555; line-height:1.6; margin:0; }
+
+  /* ── PORTFOLIO SUB-NAV ── */
+  .proj-subnav { display:none; align-items:center; justify-content:center; flex-wrap:wrap; gap:8px;
+    margin-bottom:32px; padding:12px 16px; background:var(--light);
+    border-radius:8px; border:1px solid var(--border); }
+  .proj-subnav.visible { display:flex; }
+  .proj-subnav-label { font-size:.75rem; font-weight:700; color:var(--gray);
+    text-transform:uppercase; letter-spacing:.6px; margin-right:4px; white-space:nowrap; }
+  .proj-subnav-btn { padding:5px 16px; border-radius:20px; font-size:.8rem; font-weight:600;
+    cursor:pointer; border:1.5px solid var(--navy); color:var(--navy); background:var(--white);
+    transition:background .18s, color .18s; text-decoration:none; line-height:1.4; }
+  .proj-subnav-btn:hover { background:var(--navy); color:var(--white); }
+
+  @media(max-width:700px){
+    nav { padding:12px 20px; }
+    nav ul { gap:14px; }
+    #hero { padding:120px 20px 60px; }
+    #hero h1 { font-size:2rem; }
+    .wrapper { padding:40px 16px; }
+    .tab-button { padding:10px 20px; font-size:.85rem; }
+    .proj-img-grid-2 { grid-template-columns:1fr; }
+    .proj-role-grid { grid-template-columns:1fr; }
+    .proj-learn-grid { grid-template-columns:1fr; }
+    .proj-step-title span { display:block; margin-left:0; margin-top:2px; }
+  }
+  /* ── PDF BUTTON ── */
+  .pdf-button {
+    padding:10px 28px; border-radius:6px; font-size:.92rem; font-weight:700;
+    letter-spacing:.5px; cursor:pointer; border:2px solid var(--red);
+    background:var(--red); color:var(--white);
+    transition:background .2s, border-color .2s;
+    margin-left:auto;
+  }
+  .pdf-button:hover { background:#a93226; border-color:#a93226; }
+
+  /* ── PRINT / PDF ── */
+  @media print {
+    /* ★ 배경색·그라데이션·이미지 강제 보존 (PDF 색상 유지 핵심) */
+    * {
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+    }
+
+    /* 화면 전용 요소 숨김 */
+    nav, .tab-buttons, .proj-subnav, footer { display:none !important; }
+
+    /* 레이아웃 */
+    body { background:#f0f2f8; }
+    #hero { padding:48px 48px 32px; }
+    .wrapper { padding:28px 24px; max-width:100%; }
+    section { margin-bottom:40px; }
+
+    /* 탭 콘텐츠: 활성 탭만 인쇄 */
+    .tab-content { display:none !important; }
+    .tab-content.active { display:block !important; }
+
+    /* hover 인터랙션 제거 */
+    .card:hover { transform:none; }
+    .tab-button { transform:none !important; }
+
+    /* 페이지 나눔 제어 */
+    section { break-inside:avoid; }
+    .proj-step-card { break-inside:avoid; }
+    .portfolio-section { break-inside:avoid; }
+    .section-title, .portfolio-section-title, .proj-step-header { break-after:avoid; }
+    .proj-img-grid-2 { grid-template-columns:1fr 1fr; }
+    h1, h2, h3, h4 { break-after:avoid; }
+
+    /* 링크는 화면 색상 그대로 */
+    a { color:inherit; text-decoration:none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="brand">SANGIL NA · PORTFOLIO</div>
+  <ul>
+    <li><a href="#experience" class="nav-cv-link" data-target="experience">Experience</a></li>
+    <li><a href="#education" class="nav-cv-link" data-target="education">Education</a></li>
+    <li><a href="#projects" class="nav-cv-link" data-target="projects">Projects</a></li>
+    <li><a href="#publications" class="nav-cv-link" data-target="publications">Publications</a></li>
+    <li><a href="#conference" class="nav-cv-link" data-target="conference">Conference</a></li>
+    <li><a href="#ip" class="nav-cv-link" data-target="ip">Patents &amp; IP</a></li>
+    <li><a href="#skills" class="nav-cv-link" data-target="skills">Skills</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div id="hero">
+  <div class="hero-inner">
+    <div class="hero-text">
+      <h1>나상일 &nbsp;|&nbsp; Sangil Na</h1>
+      <h2>Senior Research Engineer &nbsp;·&nbsp; AI &amp; Computer Vision for Smart Infrastructure</h2>
+      <div class="contact-row">
+        <span>📞 (+82) 10-3158-8461</span>
+        <span>✉️ billnin@naver.com</span>
+        <span>🎓 Sungkyunkwan University M.S. (2026)</span>
+        <span>📍 Suwon, South Korea</span>
+      </div>
+    </div>
+    <div class="hero-photo">
+      <img src="face/증명사진.jpg" alt="나상일 증명사진" />
+    </div>
+  </div>
+  <div class="hero-tags">
+    <span class="tag">Computer Vision</span>
+    <span class="tag">Deep Learning</span>
+    <span class="tag">Machine Learning</span>
+    <span class="tag">Python · PyTorch · OpenCV</span>
+    <span class="tag">Structural Health Monitoring</span>
+    <span class="tag">AutoCAD 2D/3D</span>
+  </div>
+</div>
+
+<div class="wrapper">
+
+  <!-- TAB BUTTONS -->
+  <div class="tab-buttons">
+    <button class="tab-button active" id="btn-portfolio" onclick="switchTab('portfolio')">Portfolio</button>
+    <button class="tab-button" id="btn-cv" onclick="switchTab('cv')">Curriculum Vitae</button>
+    <button class="pdf-button" onclick="window.print()">PDF 저장</button>
+  </div>
+
+  <!-- CV 섹션 바로가기 서브-네비 -->
+  <div class="proj-subnav" id="cv-subnav">
+    <span class="proj-subnav-label">Go to :</span>
+    <a class="proj-subnav-btn" onclick="scrollToSection('experience')">Experience</a>
+    <a class="proj-subnav-btn" onclick="scrollToSection('education')">Education</a>
+    <a class="proj-subnav-btn" onclick="scrollToSection('projects')">Research Projects</a>
+    <a class="proj-subnav-btn" onclick="scrollToSection('publications')">Publications</a>
+    <a class="proj-subnav-btn" onclick="scrollToSection('conference')">Conference</a>
+    <a class="proj-subnav-btn" onclick="scrollToSection('ip')">Patents &amp; IP</a>
+    <a class="proj-subnav-btn" onclick="scrollToSection('skills')">Skills</a>
+    <a class="proj-subnav-btn" onclick="scrollToSection('certs')">Certifications</a>
+  </div>
+
+  <!-- PORTFOLIO 프로젝트 바로가기 서브-네비 -->
+  <div class="proj-subnav" id="proj-subnav">
+    <span class="proj-subnav-label">Go to :</span>
+    <a class="proj-subnav-btn" onclick="scrollToProject('proj-detail-1')">Project 1 · 원전 지진 응답 AI 대리모델</a>
+    <a class="proj-subnav-btn" onclick="scrollToProject('proj-detail-2')">Project 2 · EVM 보도육교 성능평가</a>
+    <a class="proj-subnav-btn" onclick="scrollToProject('proj-detail-3')">Project 3 · 짚라인 무인 구난장비</a>
+  </div>
+
+  <!-- ════════════════════════════════════════
+       CV TAB CONTENT (기존 내용 전체)
+  ════════════════════════════════════════ -->
+  <div id="cv-content" class="tab-content">
+
+    <!-- EXPERIENCE -->
+    <section id="experience">
+      <div class="section-title">Experience</div>
+
+      <div style="margin-bottom:36px; border-radius:10px; overflow:hidden; box-shadow:0 2px 16px rgba(0,0,0,.10); border-top:5px solid var(--red);">
+        <table class="cv-table" style="margin-bottom:0; border-radius:0; box-shadow:none;">
+          <tr>
+            <th style="width:22%;text-align:center">회사명</th>
+            <th style="width:50%;text-align:center">부서 / 직책</th>
+            <th style="width:28%;text-align:center">기간</th>
+          </tr>
+          <tr>
+            <td class="td-org" style="text-align:center">SMARTINSIDE AI</td>
+            <td class="td-sub" style="text-align:center;white-space:nowrap">AI Research Team &nbsp;·&nbsp; Senior Research Engineer</td>
+            <td class="td-period" style="text-align:center">Mar. 2026 – Present</td>
+          </tr>
+          <tr>
+            <th style="text-align:center">주요업무</th>
+            <th colspan="2"></th>
+          </tr>
+          <tr>
+            <td colspan="3">
+              <ul>
+                <li><strong>Advanced Structural Dynamics Analysis:</strong> Computer Vision 기반 보도육교 동적 거동 분석 및 TMD 성능 평가 연구 수행</li>
+                <li><strong>Vision-based Cable Force Estimation:</strong> Computer Vision 기반 비접촉식 Cable-Stayed Bridge 장력 추정 연구 수행</li>
+                <li><strong>AI-Integrated Infrastructure Maintenance:</strong> VLM(Vision-Language Model) 활용 교통 인프라 유지관리 의사결정 연구 수행</li>
+                <li><strong>SCI 논문 투고:</strong> ASCE Journal of Computing in Civil Engineering, 제 1저자 논문 투고 (Minor Revision)</li>
+              </ul>
+            </td>
+          </tr>
+        </table>
+      </div>
+
+      <div style="border-radius:10px; overflow:hidden; box-shadow:0 2px 16px rgba(0,0,0,.10); border-top:5px solid var(--red);">
+        <table class="cv-table" style="margin-bottom:0; border-radius:0; box-shadow:none;">
+          <tr>
+            <th style="width:22%;text-align:center">회사명</th>
+            <th style="width:50%;text-align:center">부서 / 직책</th>
+            <th style="width:28%;text-align:center">기간</th>
+          </tr>
+          <tr>
+            <td class="td-org" style="text-align:center">BRITEC</td>
+            <td class="td-sub" style="text-align:center;white-space:nowrap">R&amp;D &nbsp;·&nbsp; Assistant Manager (대리)</td>
+            <td class="td-period" style="text-align:center">Mar. 2021 – Dec. 2023</td>
+          </tr>
+          <tr>
+            <th style="text-align:center">주요업무</th>
+            <th colspan="2"></th>
+          </tr>
+          <tr>
+            <td colspan="3">
+              <ul>
+                <li><strong>Structural &amp; Mechanical Design:</strong> AutoCAD 2D/3D를 활용한 보도교 난간, 교량 점검로, TMD 설계</li>
+                <li><strong>New Product Development:</strong> 원격 구동 시스템의 짚라인 구조 장비, 철도 궤도 침하 방지 장치 등 5종 이상 신제품 개발</li>
+                <li><strong>Vibration Performance Optimization:</strong> 보도육교 현장 진동 계측 데이터 기반 질량·스프링 상수 산정을 통한 TMD 설계 최적화</li>
+                <li><strong>Technical Visualization:</strong> AutoCAD 3D 렌더링·Photoshop을 활용한 3D 제품 이미지 및 기술 문서 제작</li>
+                <li><strong>Sensor System Design &amp; Patent:</strong> 방호 울타리용 아두이노 기반 초음파 센서 통합 시스템 설계 - 특허 등록 (No. 10-2021-0090084, 주발명자)</li>
+              </ul>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </section>
+
+    <!-- EDUCATION -->
+    <section id="education">
+      <div class="section-title">Education</div>
+      <div style="border-radius:10px; overflow:hidden; box-shadow:0 2px 16px rgba(0,0,0,.10); border-top:5px solid var(--red);">
+      <table class="cv-table" style="margin-bottom:0; border-radius:0; box-shadow:none;">
+        <tr>
+          <th style="width:30%;text-align:center">학교</th>
+          <th style="width:40%;text-align:center">학과 / 학위</th>
+          <th style="width:30%;text-align:center">기간</th>
+        </tr>
+        <!-- Sungkyunkwan: 행 1 -->
+        <tr>
+          <td style="text-align:center; border-bottom:none;">
+            <span class="td-org">Sungkyunkwan University</span><br>
+            <span class="td-org">성균관대학교</span><br>
+            <span class="td-sub">Suwon, South Korea</span><br>
+            <span style="font-size:.78rem; line-height:1.5; color:#596775;">GPA: 4.25 / 4.5</span>
+          </td>
+          <td style="text-align:center; vertical-align:middle; border-bottom:none;">
+            Department of Global Smart City<br>
+            <span class="td-sub">M.S. Degree</span>
+          </td>
+          <td class="td-period" style="text-align:center; vertical-align:middle; border-bottom:none;">Mar. 2024 – Feb. 2026</td>
+        </tr>
+        <!-- Sungkyunkwan: 행 2 – Dissertation / Lab -->
+        <tr>
+          <td colspan="3" style="text-align:center; vertical-align:middle; font-size:.78rem; color:var(--gray); padding-top:6px; padding-bottom:10px;">
+            <span style="color:#5a6068;">Dissertation:</span> 비접촉 카메라 기반 영상 증폭을 통한 진동 저감 장치 성능 평가 기술 &nbsp;&nbsp;|&nbsp;&nbsp; <span style="color:#5a6068;">Lab:</span> Smart Construction Information Technology
+          </td>
+        </tr>
+        <!-- Kyonggi -->
+        <tr>
+          <td style="text-align:center;">
+            <span class="td-org">Kyonggi University</span><br>
+            <span class="td-org">경기대학교</span><br>
+            <span class="td-sub">Suwon, South Korea</span><br>
+            <span style="font-size:.78rem; line-height:1.5; color:#596775;">GPA: 3.45 / 4.5</span>
+          </td>
+          <td style="text-align:center; vertical-align:middle;">
+            Department of Mechanical System Engineering<br>
+            <span class="td-sub">B.S. Degree</span>
+          </td>
+          <td class="td-period" style="text-align:center; vertical-align:middle;">Mar. 2018 – Aug. 2020</td>
+        </tr>
+        <!-- Semyung -->
+        <tr>
+          <td style="text-align:center;">
+            <span class="td-org">Semyung University</span><br>
+            <span class="td-org">세명대학교</span><br>
+            <span class="td-sub">Jecheon, South Korea</span><br>
+            <span style="font-size:.78rem; line-height:1.5; color:#596775;">GPA: 3.33 / 4.5</span>
+          </td>
+          <td style="text-align:center; vertical-align:middle;">
+            Department of Bioenvironmental Engineering<br>
+            <span class="td-sub">Undergraduate Coursework</span>
+          </td>
+          <td class="td-period" style="text-align:center; vertical-align:middle;">Mar. 2013 – Feb. 2018</td>
+        </tr>
+      </table>
+      </div>
+    </section>
+
+    <!-- RESEARCH PROJECTS -->
+    <section id="projects">
+      <div class="section-title">Research Projects</div>
+      <div class="card-grid card-grid-2col">
+
+        <div class="card" style="border-top:5px solid var(--red);">
+          <div class="card-title">원전 지진응답 예측을 위한 AI 알고리즘 자문</div>
+          <div class="card-org" style="color:#505a65;">한국전력기술 (KEPCO) / 성균관대학교 · 참여연구원</div>
+          <div class="card-meta" style="color:#8a949e; padding-top:1px;">Jul. 2025 – Dec. 2025</div>
+          <div class="card-body">
+            <ul>
+              <li>SASSI·STRATA·Ultra Edit 데이터 생성 자동화 파이프라인 구축</li>
+              <li>5,000+ 지진 응답 데이터셋 생성 (Train/Validation/Test)</li>
+              <li>최적의 가속도 응답 및 FRS 예측 모델 구축 (가속도 응답: CNN, FRS: Attention)</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="card" style="border-top:5px solid var(--red);">
+          <div class="card-title">인공지능 플러스 K건설인프라 레질리언스 연구센터 (ERC)</div>
+          <div class="card-org" style="color:#505a65;">한국연구재단 (NRF) / 성균관대학교 · 참여연구원</div>
+          <div class="card-meta" style="color:#8a949e; padding-top:1px;">Feb. 2025 – Jul. 2025</div>
+          <div class="card-body">
+            <ul>
+              <li>AI 융합 인프라 레질리언스 연구센터 설립 제안서 작성</li>
+              <li>그룹별 연구 개념·파이프라인 인포그래픽 제작 (Photoshop, AutoCAD 3D 렌더링)</li>
+              <li>서면 심사 통과 후 대면 평가 PT 자료 제작 (성균관대학교 ERC 센터 최종 선정)</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="card" style="border-top:5px solid var(--red);">
+          <div class="card-title">초장대 K-지하고속도로 인프라 안전 및 효율 향상 기술 개발</div>
+          <div class="card-org" style="color:#505a65;">국토교통부 / 성균관대학교 · 참여연구원</div>
+          <div class="card-meta" style="color:#8a949e; padding-top:1px;">Jul. 2024 – Dec. 2024</div>
+          <div class="card-body">
+            <ul>
+              <li>지하고속도로 수직구 시공 중 작업자 안전 위험 요소 파악 및 국내외 기술 동향 분석</li>
+              <li>PC 세그먼트 공법 수직도 모니터링을 위한 틸트 센서 선정·조달·연동</li>
+              <li>월간 보고서 작성 / Lab-scale 실험환경 및 데이터수집 인프라 구축</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="card" style="border-top:5px solid var(--red);">
+          <div class="card-title">작업자 행동 기반 안전 모니터링 및 예측 기술 개발</div>
+          <div class="card-org" style="color:#505a65;">행정안전부 / 성균관대학교 · 참여연구원</div>
+          <div class="card-meta" style="color:#8a949e; padding-top:1px;">Mar. 2024 – Dec. 2024</div>
+          <div class="card-body">
+            <ul>
+              <li>시스템비계 현장 작업자 행동 실시간 모니터링 실험 보조</li>
+              <li>최종 평가 보고서 및 발표자료 제작 (행정안전부 주관 정부 과제 성공적 종료)</li>
+              <li>개인연구 병행 (비계 붕괴 사고 예방을 위한 AI 기반 동적 거동 모니터링 시스템 개발)</li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- PUBLICATIONS -->
+    <section id="publications">
+      <div class="section-title">Publications</div>
+
+      <div style="border-radius:10px; overflow:hidden; box-shadow:0 2px 16px rgba(0,0,0,.10); border-top:5px solid var(--red); margin-bottom:28px;">
+      <table class="pub-table" style="margin-bottom:0; border-radius:0; box-shadow:none;">
+        <tr>
+          <th style="width:51%; text-align:center">제목 / 저널</th>
+          <th style="text-align:center">저자</th>
+          <th style="width:80px; text-align:center">연도</th>
+        </tr>
+
+        <!-- SCIE Submitted -->
+        <tr style="background:#f0f3fa;">
+          <td style="padding:7px 14px;font-size:.78rem;font-weight:700;color:var(--navy);letter-spacing:.4px;">SCIE / SSCI — Submitted</td>
+          <td style="border-bottom:none;"></td>
+          <td style="border-bottom:none;"></td>
+        </tr>
+        <tr>
+          <td>
+            Objective Frequency-Band Selection for Eulerian Video Magnification-Based<br>Non-Contact Dynamic Assessment of TMD-Equipped Footbridges.<br>
+            <em style="color:var(--gray);font-size:.78rem;">Journal of Computing in Civil Engineering, Minor Revision.</em>
+          </td>
+          <td style="font-size:.78rem;color:#444;line-height:1.6;">
+            <strong>Sangil Na</strong>, Minsoo Park, Dongyoung Ko, Seunghee Park†
+          </td>
+          <td style="text-align:center;color:var(--red);font-weight:600;">2026</td>
+        </tr>
+
+        <!-- SCIE Published -->
+        <tr style="background:#f0f3fa;">
+          <td style="padding:7px 14px;font-size:.78rem;font-weight:700;color:var(--navy);letter-spacing:.4px;">SCIE / SSCI — Published</td>
+          <td style="border-bottom:none;"></td>
+          <td style="border-bottom:none;"></td>
+        </tr>
+        <tr>
+          <td>
+            Computer vision-based steel strand tension evaluation.<br>
+            <em style="color:var(--gray);font-size:.78rem;">Engineering Applications of Artificial Intelligence, Vol.166, Part B, No.113718, pp.1–17.</em>
+          </td>
+          <td style="font-size:.78rem;color:#444;line-height:1.6;">
+            Dongyoung Ko, Minsoo Park, <strong>Sangil Na</strong>, Juyoung Jang, Yong Kwon Cho, Seunghee Park†
+          </td>
+          <td style="text-align:center;color:var(--gray);">2026.01</td>
+        </tr>
+
+        <!-- KCI Published -->
+        <tr style="background:#f0f3fa;">
+          <td style="padding:7px 14px;font-size:.78rem;font-weight:700;color:var(--navy);letter-spacing:.4px;">KCI — Published (국내 학술지)</td>
+          <td style="border-bottom:none;"></td>
+          <td style="border-bottom:none;"></td>
+        </tr>
+        <tr>
+          <td>
+            영상 증폭 기반 비접촉 계측을 통한 보도교 진동 사용성 평가.<br>
+            <em style="color:var(--gray);font-size:.78rem;">한국구조물진단유지관리공학회 논문집, vol.29, no.5, pp.124–131.</em>
+          </td>
+          <td style="font-size:.78rem;color:#444;line-height:1.6;">
+            <strong>Sangil Na</strong>, Woonggyu Choi, Seungwoo Kim, Seunghee Park†
+          </td>
+          <td style="text-align:center;color:var(--gray);">2025.10</td>
+        </tr>
+        <tr>
+          <td>
+            Computer Vision 기반 도심지 침수 영역 면적 추정에 관한 연구.<br>
+            <em style="color:var(--gray);font-size:.78rem;">한국구조물진단유지관리공학회 논문집, vol.29, no.6, pp.49–57.</em>
+          </td>
+          <td style="font-size:.78rem;color:#444;line-height:1.6;">
+            Seungwoo Kim, Woonggyu Choi, <strong>Sangil Na</strong>, Seunghee Park†
+          </td>
+          <td style="text-align:center;color:var(--gray);">2025.10</td>
+        </tr>
+
+        <!-- Thesis -->
+        <tr style="background:#f0f3fa;">
+          <td style="padding:7px 14px;font-size:.78rem;font-weight:700;color:var(--navy);letter-spacing:.4px;">Thesis (석사학위논문)</td>
+          <td style="border-bottom:none;"></td>
+          <td style="border-bottom:none;"></td>
+        </tr>
+        <tr>
+          <td>
+            비접촉 카메라 기반 영상 증폭을 통한 진동 저감 장치 성능 평가 기술.<br>
+            <em style="color:var(--gray);font-size:.78rem;">성균관대학교 석사학위논문</em>
+          </td>
+          <td style="font-size:.78rem;color:#444;line-height:1.6;">
+            <strong>Sangil Na</strong>
+          </td>
+          <td style="text-align:center;color:var(--gray);">2026.02</td>
+        </tr>
+      </table>
+      </div>
+
+    </section>
+
+    <!-- CONFERENCE -->
+    <section id="conference">
+      <div class="section-title">Conference</div>
+
+      <div style="border-radius:10px; overflow:hidden; box-shadow:0 2px 16px rgba(0,0,0,.10); border-top:5px solid var(--red);">
+      <table class="pub-table" style="margin-bottom:0; border-radius:0; box-shadow:none;">
+        <tr>
+          <th style="width:51%; text-align:center">제목 / 학회</th>
+          <th style="text-align:center">저자</th>
+          <th style="width:80px; text-align:center">연도</th>
+        </tr>
+
+        <!-- Conference Domestic -->
+        <tr style="background:#f0f3fa;">
+          <td style="padding:7px 14px;font-size:.78rem;font-weight:700;color:var(--navy);letter-spacing:.4px;">Conference — Domestic (국내 학술대회)</td>
+          <td style="border-bottom:none;"></td>
+          <td style="border-bottom:none;"></td>
+        </tr>
+        <tr>
+          <td>
+            스마트폰 카메라 기반 EVM을 활용한 보도육교 및 TMD 성능 평가.<br>
+            <em style="color:var(--gray);font-size:.78rem;">한국전산구조공학회 2026년도 정기학술대회</em>
+          </td>
+          <td style="font-size:.78rem;color:#444;line-height:1.6;">
+            <strong>Sangil Na</strong>, Minsoo Park, Dongyoung Ko, Woonggyu Choi, Kyeunghoon Cheon, Seunghee Park†
+          </td>
+          <td style="text-align:center;color:var(--gray);">2026.04</td>
+        </tr>
+        <tr>
+          <td>
+            작업자 안전 사고 예방을 위한 지능형 자동화 Digital Twin 모니터링 시스템.<br>
+            <em style="color:var(--gray);font-size:.78rem;">2025 한국방재학회 학술발표대회</em>
+          </td>
+          <td style="font-size:.78rem;color:#444;line-height:1.6;">
+            Kyongmin Kim, <strong>Sangil Na</strong>, Seungsoo Lee, Minsoo Park, Seunghee Park†
+          </td>
+          <td style="text-align:center;color:var(--gray);">2025.02</td>
+        </tr>
+        <tr>
+          <td>
+            IMU 센서와 딥러닝을 통한 건설현장 안전고리 체결 유무 판단.<br>
+            <em style="color:var(--gray);font-size:.78rem;">KSCE 2024 CONVENTION (대한토목학회)</em>
+          </td>
+          <td style="font-size:.78rem;color:#444;line-height:1.6;">
+            Kyongmin Kim, <strong>Sangil Na</strong>, Seongwoo Son, Seungsoo Lee, Minsoo Park, Seunghee Park†
+          </td>
+          <td style="text-align:center;color:var(--gray);">2024.10</td>
+        </tr>
+        <tr>
+          <td>
+            비계 붕괴 사고 예방을 위한 AI 기반 동적 거동 모니터링 시스템 개발.<br>
+            <em style="color:var(--gray);font-size:.78rem;">KSCE 2024 CONVENTION (대한토목학회)</em>
+          </td>
+          <td style="font-size:.78rem;color:#444;line-height:1.6;">
+            <strong>Sangil Na</strong>, Minsoo Park, Seungsoo Lee, Seongwoo Son, Kyoungmin Kim, Seunghee Park†
+          </td>
+          <td style="text-align:center;color:var(--gray);">2024.10</td>
+        </tr>
+        <tr>
+          <td>
+            단일 IMU센서를 활용한 딥러닝 기반 건설현장 작업자 아차사고 분석.<br>
+            <em style="color:var(--gray);font-size:.78rem;">한국구조물진단유지관리공학회 2024 가을 학술발표회</em>
+          </td>
+          <td style="font-size:.78rem;color:#444;line-height:1.6;">
+            Seongwoo Son, Sujin Jin, <strong>Sangil Na</strong>, Jaeyeon Won, Seunghee Park†
+          </td>
+          <td style="text-align:center;color:var(--gray);">2024.10</td>
+        </tr>
+      </table>
+      </div>
+    </section>
+
+    <!-- PATENTS & IP -->
+    <section id="ip">
+      <div class="section-title">Patents &amp; Intellectual Property</div>
+
+      <h3 style="font-size:.95rem;color:var(--navy);margin-bottom:14px;">특허 (Patents)</h3>
+      <table class="ip-table" style="margin-bottom:28px;">
+        <tr>
+          <th>상태</th><th>명칭</th><th>출원번호</th><th>날짜</th><th>역할</th>
+        </tr>
+        <tr>
+          <td><span class="status-pen">출원</span></td>
+          <td>현장 감시 카메라를 이용한 건설 현장 안전 감시 장치 및 방법</td>
+          <td>10-2025-0050707</td>
+          <td>2025.04.18</td>
+          <td>공동발명자 (4/6)</td>
+        </tr>
+        <tr>
+          <td><span class="status-reg">등록</span></td>
+          <td>보안 기능이 강화된 방호 울타리</td>
+          <td>10-2021-0090084</td>
+          <td>2022.01.19</td>
+          <td><strong>주발명자 (1/2)</strong></td>
+        </tr>
+      </table>
+
+      <h3 style="font-size:.95rem;color:var(--navy);margin-bottom:14px;">프로그램 등록 (Software Registration)</h3>
+      <table class="ip-table">
+        <tr>
+          <th>상태</th><th>명칭</th><th>등록번호</th><th>등록일</th><th>역할</th>
+        </tr>
+        <tr>
+          <td><span class="status-reg">등록</span></td>
+          <td>고정형 단안 카메라를 이용한 실시간 수직구 수직도 계측 알고리즘</td>
+          <td>C-2025-055245</td>
+          <td>2025.12.05</td>
+          <td>공동발명가 (7/12)</td>
+        </tr>
+        <tr>
+          <td><span class="status-reg">등록</span></td>
+          <td>건설현장 침수 안전 프로그램 (영상 분석 프로그램)</td>
+          <td>C-2025-010254</td>
+          <td>2025.03.19</td>
+          <td>공동발명자 (5/11)</td>
+        </tr>
+        <tr>
+          <td><span class="status-reg">등록</span></td>
+          <td>ConvNext 모델을 활용한 건설현장 작업자 아차사고 행동 분류 판단 알고리즘</td>
+          <td>C-2024-048437</td>
+          <td>2024.11.27</td>
+          <td>공동발명자 (4/10)</td>
+        </tr>
+      </table>
+    </section>
+
+    <!-- SKILLS -->
+    <section id="skills">
+      <div class="section-title">Skills</div>
+      <div class="skills-grid skills-grid-3col">
+        <div class="skill-card">
+          <h4>Programming &amp; Libraries</h4>
+          <ul>
+            <li>Python (Pandas, NumPy, SciPy)</li>
+            <li>PyTorch</li>
+            <li>OpenCV</li>
+            <li>Scikit-learn</li>
+            <li>Matplotlib</li>
+            <li>OpenPyXL/XlsxWriter</li>
+            
+          </ul>
+        </div>
+        <div class="skill-card">
+          <h4>ML / DL</h4>
+          <ul>
+            <li>K-Nearest Neighbors</li>
+            <li>Logistic Regression</li>
+            <li>Support Vector Machine</li>
+            <li>Decision Tree</li>
+            <li>1D/2D Convolutional Neural Network</li>
+            <li>Long Short-Term Memory</li>
+            <li>Transformer</li>
+          </ul>
+        </div>
+        <div class="skill-card">
+          <h4>Computer Vision</h4>
+          <ul>
+            <li>Eulerian Video Magnification</li>
+            <li>Gramian Angular Field</li>
+            <li>Optical Flow</li>
+            <li>Co-Tracker v3</li>
+            <li>Segment Anything Model 2</li>
+            <li>Camera Calibration</li>
+            <li>VLM (Studying)</li>
+          </ul>
+        </div>
+        <div class="skill-card">
+          <h4>Engineering Analysis & Design</h4>
+          <ul>
+            <li>AutoCAD 2D/3D/Rendering</span></li>
+            <li>TMD Design &amp; SHM</li>
+            <li>Seismic Response Prediction</li>
+            <li>Arduino Sensor System</li>
+          </ul>
+        </div>
+        <div class="skill-card">
+          <h4>Sensors &amp; Instrumentation</h4>
+          <ul>
+            <li>Accelerometer</li>
+            <li>IMU Sensor</li>
+            <li>IoT</li>
+            <li>Ultrasonic Sensor</li>
+            <li>Arduino-based Integration</li>
+          </ul>
+        </div>
+        <div class="skill-card">
+          <h4>Software &amp; Documentation</h4>
+          <ul>
+            <li>Adobe Photoshop</li>
+            <li>MS Office</li>
+            <li>Overleaf (LaTeX)</li>
+            <li>CATIA 3D Modeling</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- CERTIFICATIONS -->
+    <section id="certs">
+      <div class="section-title">Certifications &amp; Others</div>
+      <div class="cert-row">
+        <div class="cert-item">
+          <div class="cert-name">TOEIC 750</div>
+          <div class="cert-detail">YBM</div>
+          <div class="cert-date">2026.03</div>
+        </div>
+        <div class="cert-item">
+          <div class="cert-name">자동차운전면허 1종 보통</div>
+          <div class="cert-detail">서울지방경찰청</div>
+          <div class="cert-date">2020.07</div>
+        </div>
+        <div class="cert-item">
+          <div class="cert-name">부품제조설계실무자양성과정</div>
+          <div class="cert-detail">CATIA 3D 모델링·부품설계·해석 (299시간)</div>
+          <div class="cert-date">2019.06 – 2019.08 · 한국건설기계산업협회</div>
+        </div>
+        <div class="cert-item">
+          <div class="cert-name">Microsoft Office Excel</div>
+          <div class="cert-detail">MOS Certification</div>
+          <div class="cert-date">2013.06</div>
+        </div>
+        <div class="cert-item">
+          <div class="cert-name">Microsoft Office PowerPoint</div>
+          <div class="cert-detail">MOS Certification</div>
+          <div class="cert-date">2013.12</div>
+        </div>
+        <div class="cert-item">
+          <div class="cert-name">Microsoft Office Word Expert</div>
+          <div class="cert-detail">MOS Certification</div>
+          <div class="cert-date">2016.06</div>
+        </div>
+      </div>
+    </section>
+
+  </div><!-- /#cv-content -->
+
+  <!-- ════════════════════════════════════════
+       PORTFOLIO TAB CONTENT (placeholder)
+  ════════════════════════════════════════ -->
+  <div id="portfolio-content" class="tab-content active">
+
+    <!-- Portfolio Overview -->
+    <div class="portfolio-section">
+      <div class="portfolio-section-title">Portfolio Overview</div>
+      <div style="background:var(--white); border-radius:10px; padding:32px 36px;
+           box-shadow:0 2px 12px rgba(0,0,0,.07); border-left:5px solid var(--navy);">
+        <p style="font-size:1rem; line-height:1.9; color:#333; margin-bottom:20px;">
+          기계시스템을 기반으로 <strong>제품 설계 및 개발 실무 경험</strong>을 쌓고,<br>
+          글로벌스마트시티융합전공 석사 과정을 통해
+          <strong>Computer Vision · AI · 구조 모니터링</strong> 분야까지<br>지속적으로 역량을 확장하는
+          <strong>융·복합형 연구 엔지니어</strong>입니다.
+        </p>
+        <div style="display:flex; flex-wrap:wrap; gap:10px;">
+          <span style="background:var(--navy); color:var(--white); padding:5px 16px;
+            border-radius:20px; font-size:.8rem; font-weight:600;">AutoCAD 3D/2D 설계</span>
+          <span style="background:var(--navy); color:var(--white); padding:5px 16px;
+            border-radius:20px; font-size:.8rem; font-weight:600;">하드웨어 시스템 개발</span>
+          <span style="background:var(--navy); color:var(--white); padding:5px 16px;
+            border-radius:20px; font-size:.8rem; font-weight:600;">Computer Vision</span>
+          <span style="background:var(--navy); color:var(--white); padding:5px 16px;
+            border-radius:20px; font-size:.8rem; font-weight:600;">Deep Learning (CNN · Transformer)</span>
+          <span style="background:var(--navy); color:var(--white); padding:5px 16px;
+            border-radius:20px; font-size:.8rem; font-weight:600;">구조 모니터링 (SHM)</span>
+          <span style="background:var(--red); color:var(--white); padding:5px 16px;
+            border-radius:20px; font-size:.8rem; font-weight:600;">SCI 논문 제1저자</span>
+          <span style="background:var(--red); color:var(--white); padding:5px 16px;
+            border-radius:20px; font-size:.8rem; font-weight:600;">등록특허 주발명자</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Featured Projects -->
+    <div class="portfolio-section">
+      <div class="portfolio-section-title">Featured Projects</div>
+      <div class="card-grid">
+
+        <div class="card" style="border-top:5px solid var(--red);">
+          <div class="card-title">① 원전 지진응답 예측을 위한<br>AI 알고리즘 자문</div>
+          <div class="card-meta">Jul. 2025 – Dec. 2025<br>한국원자력학회 발표 (26.05.07)</div>
+          <div class="card-org">한국전력기술(KEPCO E&C) / 성균관대학교<br>참여연구원</div>
+          <div class="card-body">
+            <li>학습 데이터 생성 자동화 파이프라인 구축</li>
+            <li>CNN·Transformer·LSTM·MIMO 모델 비교</li>
+            <li>최적의 Acc·FRS 예측 모델 도출</li>
+          </div>
+        </div>
+
+        <div class="card" style="border-top:5px solid var(--red);">
+          <div class="card-title">② 스마트폰 카메라 기반<br>보도육교 · TMD 성능평가</div>
+          <div class="card-meta">Mar. 2026 – Present<br>한국전산구조공학회 발표 (26.04.17), ASCE 논문 투고</div>
+          <div class="card-org">SMARTINSIDE AI / 성균관대학교<br> 개인연구</div>
+          <div class="card-body">
+            <li>비접촉식 보도육교 및 TMD 진동 계측</li>
+            <li>최적의 주파수 자동 선정 알고리즘 개발</li> 
+            <li>4개 현장 MAPE 7% 이내 달성</li>
+          </div>
+        </div>
+
+        <div class="card" style="border-top:5px solid var(--red);">
+          <div class="card-title">③ 짚라인 공중 놀이 시설용<br>무인 구난장비 개발</div>
+          <div class="card-meta">2022 – Dec. 2023<br>등록특허 10-2667228</div>
+          <div class="card-org">BRITEC Co., Ltd. · R&amp;D Division<br>신제품 개발 총괄</div>
+          <div class="card-body">
+            <li>AutoCAD 2D/3D 도면 설계</li> 
+            <li>18650 12v 배터리 팩 제작</li>
+            <li>배선, 조립 등 공정주도</li>
+            <li>실외 짚라인 케이블 원격 구동 검증 완료</li>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Project Detail Section 1 -->
+    <div class="portfolio-section" id="proj-detail-1">
+      <div class="portfolio-section-title">Project 1 — 원전 지진응답 예측을 위한 AI 알고리즘 자문</div>
+
+      <!-- 프로젝트 헤더 -->
+      <table class="proj-info-table">
+        <tr><td class="pkey">기간</td><td>Jul. 2025 – Dec. 2025</td></tr>
+        <tr><td class="pkey">발주</td><td>한국전력기술 (KEPCO E&C)</td></tr>
+        <tr><td class="pkey">소속</td><td>성균관대학교 글로벌스마트시티융합전공</td></tr>
+        <tr><td class="pkey">역할</td><td>참여연구원</td></tr>
+        <tr><td class="pkey">발표</td><td>한국원자력학회 춘계학술발표회 · 2026.05.07 · 제주 ICC (공동저자)</td></tr>
+        <tr class="summary">
+          <td class="pkey">요약</td>
+          <td>- 원자력 발전소의 지진 응답 예측을 위한 <strong>AI 기반 대리모델(Surrogate Model) 개발</strong><br>
+              - STRATA–SASSI 연계 해석을 통해 <strong>5,000+개 지반-구조물 응답 데이터셋 생성 자동화 파이프라인</strong> 구축<br>
+              - CNN·Transformer·LSTM·MIMO 4종 모델의 성능을 <strong>시간이력 가속도와 층응답스펙트럼(FRS) 예측 모델</strong>을 체계적으로 비교·평가</td>
+        </tr>
+      </table>
+
+      <!-- 1. Background / Problem -->
+      <div class="proj-step-card">
+        <div class="proj-step-header">
+          <div class="proj-step-num">1</div>
+          <div class="proj-step-title">Background</div>
+        </div>
+        <div class="proj-step-body">
+          <ul class="proj-bullet-list">
+            <li>원자력 발전소는 엄격한 내진 안전 기준을 준수해야 하며, 설계 단계부터 지속적인 성능 검증이 법적으로 요구됨</li>
+            <li>기존 동적 지진응답 해석은 지반-구조물 상호작용·비선형 지반 특성·구조물 동적 거동을 복합적으로 고려해야 하므로 해석에 많은 시간이 소요됨</li>
+            <li>다양한 지반 조건·지진 시나리오를 고려한 대규모 학습 데이터 확보가 사실상 불가능함 (기존 방식으로 AI 대리모델 구축에 근본적 한계가 있음)</li>
+            <li>선행 AI 대리모델 연구의 공통 한계: SSI 해석 미반영, 비선형 지반 거동 단순화, Acc/FRS 통합 예측 미달성</li>
+          </ul>
+          <div class="proj-img-wrap" style="margin-top:20px;">
+            <img src="p1/img/1.%20Framework.png" alt="Research Framework" />
+            <div class="proj-img-caption">Fig 1. 연구 Framework — 시추공 지반데이터 → STRATA → SASSI → AI Surrogate Model 단계적 접근</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2. Objective -->
+      <div class="proj-step-card">
+        <div class="proj-step-header">
+          <div class="proj-step-num">2</div>
+          <div class="proj-step-title">Objective</div>
+        </div>
+        <div class="proj-step-body">
+          <ul class="proj-bullet-list">
+            <li>STRATA–SASSI 연계 해석 결과를 학습 데이터로 활용하여 물리적 타당성이 확보된 AI 대리모델(Surrogate Model) 구축</li>
+            <li>기존 연구를 벤치마킹하여 시간이력 가속도(Acc)와 층응답스펙트럼(FRS)를 하나의 파이프라인에서 동시 예측</li>
+            <li>CNN · Transformer · LSTM · MIMO 4종 모델을 동일 조건에서 체계적으로 비교</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- 3. My Role -->
+      <div class="proj-step-card">
+        <div class="proj-step-header">
+          <div class="proj-step-num">3</div>
+          <div class="proj-step-title">My Role</div>
+        </div>
+        <div class="proj-step-body">
+          <div class="proj-role-grid">
+            <div class="proj-role-item">
+              <div class="proj-role-icon">1</div>
+              <div>
+                <strong>데이터 생성 자동화 파이프라인 구축</strong>
+                <p>SASSI · STRATA · Ultra Edit 데이터셋 생성 프로세스를 자동화하여, 기존 30일 이상 소요될 작업을 1주일 미만으로 단축</p>
+              </div>
+            </div>
+            <div class="proj-role-item">
+              <div class="proj-role-icon">2</div>
+              <div>
+                <strong>AI 모델 비교 실험 수행</strong>
+                <p>CNN · Transformer · LSTM · MIMO <br>모델 학습 · 검증 · 테스트 수행 <br>MAE · RMSE · R² 기준 ACC/FRS 예측 성능 체계적 비교 후 최적 모델 선정</p>
+              </div>
+            </div>
+            <div class="proj-role-item">
+              <div class="proj-role-icon">3</div>
+              <div>
+                <strong>학술대회 공동 발표</strong>
+                <p>한국원자력학회 2026 춘계학술발표회 (2026.05.07, 제주 ICC) 연구 성과 대외 발표 및 기술 검토 참여</p>
+              </div>
+            </div>
+          </div>
+          <div class="proj-img-grid-2" style="margin-top:20px;">
+            <div class="proj-img-wrap">
+              <img src="p1/img/2.%20학습%20데이터%20구축.png" alt="학습 데이터 구축" class="img-h240" />
+              <div class="proj-img-caption">Fig 3-1. 학습 데이터 생성 프로세스</div>
+            </div>
+            <div class="proj-img-wrap">
+              <img src="p1/img/2.%20구축%20데이터.png" alt="구축 데이터 현황" class="img-h240" />
+              <div class="proj-img-caption">Fig 3-2. 데이터셋 현황</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 4. Methods / Tech Stack -->
+      <div class="proj-step-card">
+        <div class="proj-step-header">
+          <div class="proj-step-num">4</div>
+          <div class="proj-step-title">Methods / Tech Stack</div>
+        </div>
+        <div class="proj-step-body">
+          <div class="proj-tech-section">
+            <div class="proj-tech-label">해석 소프트웨어</div>
+            <div class="proj-tech-grid">
+              <span class="proj-tech-tag highlight">STRATA</span>
+              <span class="proj-tech-tag highlight">SASSI 2010</span>
+              <span class="proj-tech-tag">Ultra Edit</span>
+              <span class="proj-tech-tag">부지응답해석 (등가선형)</span>
+              <span class="proj-tech-tag">SSI 해석</span>
+            </div>
+          </div>
+          <div class="proj-tech-section">
+            <div class="proj-tech-label">AI 모델</div>
+            <div class="proj-tech-grid">
+              <span class="proj-tech-tag highlight">CNN (Conv1D Branch)</span>
+              <span class="proj-tech-tag highlight">Transformer (Multi-Head Attention)</span>
+              <span class="proj-tech-tag">LSTM</span>
+              <span class="proj-tech-tag">MIMO</span>
+              <span class="proj-tech-tag">Python · PyTorch</span>
+            </div>
+          </div>
+          <div class="proj-tech-section">
+            <div class="proj-tech-label">평가 지표</div>
+            <div class="proj-tech-grid">
+              <span class="proj-tech-tag">MAE</span>
+              <span class="proj-tech-tag">RMSE</span>
+              <span class="proj-tech-tag">R²</span>
+              <span class="proj-tech-tag">△PGA (Peak Ground Acceleration)</span>
+            </div>
+          </div>
+          <div class="proj-img-grid-2" style="margin-top:20px;">
+            <div class="proj-img-wrap">
+              <img src="p1/img/5.%20input%20데이터.png" alt="Input 데이터 구조" class="img-h240" />
+              <div class="proj-img-caption">Fig 4-1. Input 데이터 구조 (STRATA Output)</div>
+            </div>
+            <div class="proj-img-wrap">
+              <img src="p1/img/5.%20output%20데이터.png" alt="Output 데이터 구조" class="img-h240" />
+              <div class="proj-img-caption">Fig 4-2. Output 데이터 구조 (SASSI Output)</div>
+            </div>
+          </div>
+          <div class="proj-img-grid-2" style="margin-top:16px;">
+            <div class="proj-img-wrap">
+              <img src="p1/img/3.%20CNN%20모델.png" alt="CNN 모델 구조" class="img-h280" />
+              <div class="proj-img-caption">Fig 4-3. CNN 모델 아키텍처 — ACC 예측</div>
+            </div>
+            <div class="proj-img-wrap">
+              <img src="p1/img/4.%20Transformer%20모델.png" alt="Transformer 모델 구조" class="img-h280" />
+              <div class="proj-img-caption">Fig 4-4. Transformer 모델 아키텍처 — FRS 예측</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 5. Results -->
+      <div class="proj-step-card">
+        <div class="proj-step-header">
+          <div class="proj-step-num">5</div>
+          <div class="proj-step-title">Results</div>
+        </div>
+        <div class="proj-step-body">
+          <div class="proj-achievement-grid" style="margin-bottom:24px;">
+            <div class="proj-achievement-item">
+              <div class="proj-achievement-num">5,000 이상</div>
+              <div class="proj-achievement-label">구축 데이터셋<br>(Site 1+2 합산)</div>
+            </div>
+            <div class="proj-achievement-item">
+              <div class="proj-achievement-num">30일+ → 7일</div>
+              <div class="proj-achievement-label">자동화로 처리 기간<br>75% 이상 단축</div>
+            </div>
+            <div class="proj-achievement-item">
+              <div class="proj-achievement-num">R² 0.64</div>
+              <div class="proj-achievement-label">Acc 예측 최고 성능<br>(CNN)</div>
+            </div>
+            <div class="proj-achievement-item">
+              <div class="proj-achievement-num">R² 0.72</div>
+              <div class="proj-achievement-label">FRS 예측 최고 성능<br>(Transformer)</div>
+            </div>
+          </div>
+          <div class="proj-img-grid-2">
+            <div class="proj-img-wrap">
+              <img src="p1/img/6.%20ouput(가속도%20데이터)%20결과.png" alt="ACC 예측 결과" />
+              <div class="proj-img-caption">Fig 5-1. 시간이력 가속도(Acc) 예측 결과 비교 — CNN Best</div>
+            </div>
+            <div class="proj-img-wrap">
+              <img src="p1/img/6.%20output(FRS%20데이터)%20결과.png" alt="FRS 예측 결과" />
+              <div class="proj-img-caption">Fig 5-2. 층응답스펙트럼(FRS) 예측 결과 비교 — Transformer Best</div>
+            </div>
+          </div>
+          <div style="overflow-x:auto; margin-top:20px;">
+            <table class="ip-table">
+              <thead>
+                <tr>
+                  <th rowspan="2">Model</th>
+                  <th colspan="3" style="text-align:center; background:#243b6e;">ACC (시간이력 가속도)</th>
+                  <th colspan="3" style="text-align:center; background:#1a5276;">FRS (층응답스펙트럼)</th>
+                </tr>
+                <tr>
+                  <th>MAE ↓</th><th>RMSE ↓</th><th>R² ↑</th>
+                  <th>MAE ↓</th><th>RMSE ↓</th><th>R² ↑</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr style="background:#fff8e1;">
+                  <td><strong>CNN ★</strong></td>
+                  <td>0.2196</td><td><strong>0.3625</strong></td><td><strong>0.6417</strong></td>
+                  <td>0.6635</td><td>1.0681</td><td>0.5529</td>
+                </tr>
+                <tr style="background:#e8f5e9;">
+                  <td><strong>Transformer ★</strong></td>
+                  <td>0.2726</td><td>0.4192</td><td>0.2774</td>
+                  <td><strong>0.3218</strong></td><td><strong>0.5884</strong></td><td><strong>0.7213</strong></td>
+                </tr>
+                <tr>
+                  <td>MIMO</td>
+                  <td>0.2392</td><td>0.4182</td><td>0.2634</td>
+                  <td>0.5589</td><td>1.0782</td><td>0.6001</td>
+                </tr>
+                <tr>
+                  <td>LSTM</td>
+                  <td>0.2049</td><td>0.4010</td><td>0.3227</td>
+                  <td>0.7531</td><td>1.3992</td><td>0.4496</td>
+                </tr>
+              </tbody>
+            </table>
+            <p style="font-size:.78rem; color:var(--gray); margin-top:8px; font-style:italic;">
+              ★ ACC 최우수: CNN (RMSE 0.3625, R² 0.6417) &nbsp;/&nbsp; ★ FRS 최우수: Transformer (MAE 0.3218, R² 0.7213)
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 6. What I Learned / Relevance -->
+      <div class="proj-step-card">
+        <div class="proj-step-header">
+          <div class="proj-step-num">6</div>
+          <div class="proj-step-title">What I Learned </div>
+        </div>
+        <div class="proj-step-body">
+          <div class="proj-learn-grid">
+            <div class="proj-learn-item">
+              <strong>대규모 데이터 처리 자동화 역량</strong>
+              <p> - 반복적 시뮬레이션 데이터 생성을 코드로 자동화하여 연구 효율을 극대화<br> 
+                 - Python 기반 데이터 파이프라인 설계 및 CSV 표준화 전처리 역량 확보</p>
+            </div>
+            <div class="proj-learn-item">
+              <strong>Physics-Informed AI 연계 경험</strong>
+              <p> - 물리 기반 해석(STRATA/SASSI) 결과를 AI 입력으로 활용하는 방법론 체득<br> - 도메인 지식과 딥러닝을 연결하는 실무 경험</p>
+            </div>
+            <div class="proj-learn-item">
+              <strong>최적의 예 모델 선택</strong>
+              <p> - 시계열 예측(Acc): CNN, 주파수 도메인 예측(FRS): Transformer 비교 실험으로 검증<br> - 문제 특성에 따른 모델 구조 선택 역량 확보</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Project Detail Section 2 -->
+    <div class="portfolio-section" id="proj-detail-2">
+      <div class="portfolio-section-title">Project 2 — 스마트폰 EVM 기반 보도육교 · TMD 비접촉 성능평가</div>
+
+      <!-- 프로젝트 헤더 -->
+      <table class="proj-info-table">
+        <tr><td class="pkey">기간</td><td>Mar. 2026 – Present</td></tr>
+        <tr><td class="pkey">소속</td><td>㈜스마트인사이드AI / 성균관대학교</td></tr>
+        <tr><td class="pkey">역할</td><td>책임연구원</td></tr>
+        <tr><td class="pkey">발표</td><td>한국전산구조공학회 2026 정기학술대회 · 2026.04.17 · GIST</td></tr>
+        <tr><td class="pkey">논문</td><td>ASCE Journal of Computing in Civil Engineering 투고 -Minor Revision- (주저자)</td></tr>
+        <tr class="summary">
+          <td class="pkey">요약</td>
+          <td>- 스마트폰 카메라 기반 EVM을 활용한 <strong>보도육교 및 TMD 비접촉 성능평가 연구</strong><br>- <strong>PSD 기반 최적 주파수 대역 자동 선정 알고리즘</strong> 개발<br>- Welch's PSD 분석을 위한 <strong>Python 기반 GUI 응용프로그램</strong> 구현<br>- 전 지표 <strong>MAPE 7% 이내</strong> 달성</td>
+        </tr>
+      </table>
+
+      <!-- 1. Background / Problem -->
+      <div class="proj-step-card">
+        <div class="proj-step-header">
+          <div class="proj-step-num">1</div>
+          <div class="proj-step-title">Background</div>
+        </div>
+        <div class="proj-step-body">
+          <ul class="proj-bullet-list">
+            <li>현대식 보도육교는 경량화 설계·비구조 부자재 추가로 인해 설계 고유진동수와 실제 고유진동수가 다른 경우가 발생 (보행하중과 공진 현상 유발 위험)</li>
+            <li>기존 구조해석 모델링 방식의 한계: 비구조 요소 생략 · 모델링 불확실성으로 실제 구조물 거동과 차이 발생</li>
+            <li>기존 접촉식 센서 방식의 한계: 센서 부착 위치·조건에 따른 계측 오차, 교량 위 장비 설치 필요로 현장 적용 제약</li>
+            <li>TMD 성능 평가 역시 접촉식 계측에 전적으로 의존 (비접촉식으로 현장에서 직접 검증하는 방법론 부재)</li>
+          </ul>
+          <div class="proj-img-wrap" style="margin-top:20px;">
+            <img src="p2/img/1.%20framework.png" alt="연구 Framework" />
+            <div class="proj-img-caption">Fig 1. 연구 Framework — Camera Calibration → Phase-based EVM → Optical Flow → PSD 기반 주파수 선정 → 성능평가</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2. Objective -->
+      <div class="proj-step-card">
+        <div class="proj-step-header">
+          <div class="proj-step-num">2</div>
+          <div class="proj-step-title">Objective</div>
+        </div>
+        <div class="proj-step-body">
+          <ul class="proj-bullet-list">
+            <li>스마트폰 카메라만으로 구조물에 센서를 부착하지 않고 보도육교의 동적 특성을 비접촉 계측하는 방법 개발</li>
+            <li>EVM 적용에 필요한 주파수 대역 파라미터를 PSD 기반 지표(PeakGain · FWHM · Stability · SNR)로 자동 선정하는 알고리즘 개발</li>
+            <li>보도육교 진동 사용성 평가: 최대 가속도(설계 기준 만족 여부) · 지배 주파수(공진 대역 여부) 추정</li>
+            <li>TMD 설치 보도육교의 감쇠비 산정을 통한 진동 저감 장치 성능 평가</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- 3. My Role -->
+      <div class="proj-step-card">
+        <div class="proj-step-header">
+          <div class="proj-step-num">3</div>
+          <div class="proj-step-title">My Role</div>
+        </div>
+        <div class="proj-step-body">
+          <div class="proj-role-grid" style="grid-template-columns:repeat(2,1fr);">
+            <div class="proj-role-item">
+              <div class="proj-role-icon">1</div>
+              <div>
+                <strong>Camera Calibration</strong>
+                <p>40장 체커보드 이미지로 스마트폰 내·외부 파라미터 추정하여 Reprojection Error 0.477 으로 영상 왜곡 보정 파이프라인 구축</p>
+              </div>
+            </div>
+            <div class="proj-role-item">
+              <div class="proj-role-icon">2</div>
+              <div>
+                <strong>EVM + Optical Flow 파이프라인</strong>
+                <p>Phase-based EVM으로 미세 진동 증폭 후 Optical Flow로 시간이력 가속도 추출하여 Linear-based 대비 더 정밀한 데이터 확보</p>
+              </div>
+            </div>
+            <div class="proj-role-item">
+              <div class="proj-role-icon">3</div>
+              <div>
+                <strong>최적 주파수 자동 선정 알고리즘</strong>
+                <p>0.1–3.15 Hz 구간을 15개로 분할, PSD 4개 지표(PG·FWHM·Stability·SNR) 정규화, Score 기반 최적 대역 자동 선정</p>
+              </div>
+            </div>
+            <div class="proj-role-item">
+              <div class="proj-role-icon">4</div>
+              <div>
+                <strong>Welch's PSD 응용프로그램 구현</strong>
+                <p>Welch's PSD 분석을 빠르게 수행하기 위해 Python으로 직접 구현한 GUI 응용프로그램 — 영상 파일 입력부터 주파수 분석 결과 출력까지 원클릭으로 처리</p>
+              </div>
+            </div>
+          </div>
+          <div class="proj-img-grid-2" style="margin-top:20px;">
+            <div class="proj-img-wrap">
+              <img src="p2/img/2.%20calibration을%20위한%20checkerboard%20이미지.png" alt="체커보드 캘리브레이션" class="img-h240" />
+              <div class="proj-img-caption">Fig 3-1. 체커보드 이미지</div>
+            </div>
+            <div class="proj-img-wrap">
+              <img src="p2/img/2.%20camera%20calibration.png" alt="캘리브레이션 결과" class="img-h240" />
+              <div class="proj-img-caption">Fig 3-2. 캘리브레이션 프레임 (Reprojection Error 0.477)</div>
+            </div>
+          </div>
+          <div class="proj-img-grid-2" style="margin-top:16px;">
+            <div class="proj-img-wrap">
+              <img src="p2/img/7.%20PSD%20프로그램%20(input%20파일%20열었을%20때%20모습).png" alt="PSD 프로그램 input" class="img-h240" />
+              <div class="proj-img-caption">Fig 3-3. Welch's PSD 프로그램 — input 파일 로드 화면</div>
+            </div>
+            <div class="proj-img-wrap">
+              <img src="p2/img/7.%20PSD%20프로그램%20(PSD%20계산%20후%20모습).png" alt="PSD 프로그램 결과" class="img-h240" />
+              <div class="proj-img-caption">Fig 3-4. Welch's PSD 프로그램 — PSD 계산 결과 화면</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 4. Methods / Tech Stack -->
+      <div class="proj-step-card">
+        <div class="proj-step-header">
+          <div class="proj-step-num">4</div>
+          <div class="proj-step-title">Methods / Tech Stack</div>
+        </div>
+        <div class="proj-step-body">
+          <div class="proj-tech-section">
+            <div class="proj-tech-label">계측 장비</div>
+            <div class="proj-tech-grid">
+              <span class="proj-tech-tag highlight">Samsung Galaxy S23</span>
+              <span class="proj-tech-tag highlight">Witmotion IMU BWT901CL</span>
+              <span class="proj-tech-tag">24 fps · 1920×1080</span>
+              <span class="proj-tech-tag">20 Hz · 0.005g 분해능</span>
+            </div>
+          </div>
+          <div class="proj-tech-section">
+            <div class="proj-tech-label">영상처리 · 알고리즘</div>
+            <div class="proj-tech-grid">
+              <span class="proj-tech-tag highlight">Phase-based EVM</span>
+              <span class="proj-tech-tag highlight">Optical Flow</span>
+              <span class="proj-tech-tag">Camera Calibration (Zhang's method)</span>
+              <span class="proj-tech-tag">PSD (Power Spectral Density)</span>
+              <span class="proj-tech-tag">Python · OpenCV</span>
+            </div>
+          </div>
+          <div class="proj-tech-section">
+            <div class="proj-tech-label">주파수 선정 지표</div>
+            <div class="proj-tech-grid">
+              <span class="proj-tech-tag">PeakGain (PG)</span>
+              <span class="proj-tech-tag">FWHM</span>
+              <span class="proj-tech-tag">Stability</span>
+              <span class="proj-tech-tag">SNR (dB)</span>
+            </div>
+          </div>
+          <div style="margin-top:20px;">
+            <div class="proj-img-wrap">
+              <img src="p2/img/3.%20EVM%20알고리즘%20및%20최적%20주파수%20대역%20산정%20지표.png" alt="EVM 알고리즘 및 지표" class="img-h240" />
+              <div class="proj-img-caption">Fig 4-1. Phase-based EVM 알고리즘 및 PSD 그래프</div>
+            </div>
+            <div class="proj-img-wrap" style="margin-top:14px;">
+              <img src="p2/img/3.%20가속도%20데이터%20추출(EVM영상처리%20기법별%20비교).png" alt="EVM 기법별 비교" class="img-h240" />
+              <div class="proj-img-caption">Fig 4-2. Linear-based vs. Phase-based EVM 가속도 데이터 비교</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 5. Results -->
+      <div class="proj-step-card">
+        <div class="proj-step-header">
+          <div class="proj-step-num">5</div>
+          <div class="proj-step-title">Results</div>
+        </div>
+        <div class="proj-step-body">
+          <div class="proj-achievement-grid" style="margin-bottom:24px;">
+            <div class="proj-achievement-item">
+              <div class="proj-achievement-num">현장 검증</div>
+              <div class="proj-achievement-label">보도육교<br>(일반 2 · TMD 2)</div>
+            </div>
+            <div class="proj-achievement-item">
+              <div class="proj-achievement-num">MAPE &lt;7%</div>
+              <div class="proj-achievement-label">전체 지표<br>신뢰도 달성</div>
+            </div>
+            <div class="proj-achievement-item">
+              <div class="proj-achievement-num">2.75%</div>
+              <div class="proj-achievement-label">지배 주파수<br>MAPE (최소)</div>
+            </div>
+            <div class="proj-achievement-item">
+              <div class="proj-achievement-num">ASCE</div>
+              <div class="proj-achievement-label">JCCE 논문 투고<br>(제1저자)</div>
+            </div>
+          </div>
+
+          <!-- 성능 비교 이미지 -->
+          <div class="proj-img-grid-2">
+            <div class="proj-img-wrap">
+              <img src="p2/img/4.%20성능평가%20지표(원본%20영상,%20센서,%20proposed%20method%20비교%20결과).png" alt="성능평가 지표 비교" class="img-h280" />
+              <div class="proj-img-caption">Fig 5-1. 원본 영상 · 가속도 센서 · Proposed Method 성능 비교</div>
+            </div>
+            <div class="proj-img-wrap">
+              <img src="p2/img/4.%20지표%20계산%20및%20score%20환산표.png" alt="지표 계산 및 Score 환산표" class="img-h280" />
+              <div class="proj-img-caption">Fig 5-2. 주파수 파라미터별 지표 계산 및 Score 환산표</div>
+            </div>
+          </div>
+
+          <!-- 현장 검증 이미지 2×2 -->
+          <div class="proj-img-grid-2" style="margin-top:16px;">
+            <div class="proj-img-wrap">
+              <img src="p2/img/5.%20현장%20검증%20(1)%20천천동%20보도육교.png" alt="천천동 보도육교" class="img-h240" />
+              <div class="proj-img-caption">Fig 5-3. 천천동 보도육교 (일반) — 설계 기준 초과, 공진 위험</div>
+            </div>
+            <div class="proj-img-wrap">
+              <img src="p2/img/5.%20현장%20검증%20(2)%20한남초교앞%20보도육교.png" alt="한남초교앞 보도육교" class="img-h240" />
+              <div class="proj-img-caption">Fig 5-4. 한남초교앞 보도육교 (일반) — 설계 기준 만족</div>
+            </div>
+          </div>
+          <div class="proj-img-grid-2" style="margin-top:16px;">
+            <div class="proj-img-wrap">
+              <img src="p2/img/5.%20현장%20검증%20(3)%20말죽거리%20보도육교.png" alt="말죽거리 보도육교" class="img-h240" />
+              <div class="proj-img-caption">Fig 5-5. 말죽거리 보도육교 (TMD 설치) — TMD 양호, 가속도 기준 30% 수준</div>
+            </div>
+            <div class="proj-img-wrap">
+              <img src="p2/img/5.%20현장%20검증%20(4)%20서강하늘다리.png" alt="서강하늘다리" class="img-h240" />
+              <div class="proj-img-caption">Fig 5-6. 서강하늘다리 (TMD 설치) — 공진 대역이나 TMD 고감쇠 효과 유효</div>
+            </div>
+          </div>
+
+          <!-- 신뢰성 검증 이미지 -->
+
+          <!-- 종합 성능 테이블 -->
+          <div style="overflow-x:auto; margin-top:20px;">
+            <table class="ip-table">
+              <thead>
+                <tr>
+                  <th style="text-align:center;">지표</th>
+                  <th style="text-align:center;">MAE</th>
+                  <th style="text-align:center;">RMSE</th>
+                  <th style="text-align:center;">MAPE</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Peak Acceleration [m/s²]</strong></td>
+                  <td style="text-align:center;">0.0325</td>
+                  <td style="text-align:center;">0.0350</td>
+                  <td style="text-align:center;"><strong>6.44%</strong></td>
+                </tr>
+                <tr>
+                  <td><strong>Dominant Frequency [Hz]</strong></td>
+                  <td style="text-align:center;">0.0675</td>
+                  <td style="text-align:center;">0.0863</td>
+                  <td style="text-align:center;"><strong>2.75%</strong></td>
+                </tr>
+                <tr>
+                  <td><strong>Damping Ratio [%]</strong></td>
+                  <td style="text-align:center;">0.1650</td>
+                  <td style="text-align:center;">0.1979</td>
+                  <td style="text-align:center;"><strong>4.31%</strong></td>
+                </tr>
+              </tbody>
+            </table>
+            <p style="font-size:.78rem; color:var(--gray); margin-top:8px; font-style:italic;">모든 지표 MAPE 7% 이내 — 접촉식 가속도 센서 수준의 계측 신뢰성 입증</p>
+          </div>
+
+          <!-- 현장별 종합 평가 테이블 -->
+          <div style="overflow-x:auto; margin-top:16px;">
+            <table class="ip-table">
+              <thead>
+                <tr>
+                  <th style="text-align:center;">현장</th>
+                  <th style="text-align:center;">TMD</th>
+                  <th style="text-align:center;">최대 가속도</th>
+                  <th style="text-align:center;">지배 주파수</th>
+                  <th style="text-align:center;">감쇠비</th>
+                  <th style="text-align:center;">비고</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>천천동 보도육교</td>
+                  <td style="text-align:center;">✕</td>
+                  <td style="text-align:center;"><span class="status-pen">기준 초과</span></td>
+                  <td style="text-align:center;"><span class="status-pen">공진 위험</span></td>
+                  <td style="text-align:center;">3.70%</td>
+                  <td style="text-align:center;">진동 저감 대책 수립 필요</td>
+                </tr>
+                <tr>
+                  <td>한남초교앞 보도육교</td>
+                  <td style="text-align:center;">✕</td>
+                  <td style="text-align:center;"><span class="status-reg">기준 만족</span></td>
+                  <td style="text-align:center;"><span class="status-reg">공진 회피</span></td>
+                  <td style="text-align:center;">3.38%</td>
+                  <td style="text-align:center;">공진 회피 설계 유효성 확인</td>
+                </tr>
+                <tr>
+                  <td>말죽거리 보도육교</td>
+                  <td style="text-align:center;">✔</td>
+                  <td style="text-align:center;"><span class="status-reg">기준 만족</span></td>
+                  <td style="text-align:center;"><span class="status-reg">공진 회피</span></td>
+                  <td style="text-align:center;">3.68%</td>
+                  <td style="text-align:center;">TMD 가동 상태 양호</td>
+                </tr>
+                <tr>
+                  <td>서강하늘다리</td>
+                  <td style="text-align:center;">✔</td>
+                  <td style="text-align:center;"><span class="status-reg">기준 만족</span></td>
+                  <td style="text-align:center;"><span class="status-pen">공진 위험</span></td>
+                  <td style="text-align:center;">5.11%</td>
+                  <td style="text-align:center;">TMD 고감쇠 효과로 응답 억제</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- 6. What I Learned / Relevance -->
+      <div class="proj-step-card">
+        <div class="proj-step-header">
+          <div class="proj-step-num">6</div>
+          <div class="proj-step-title">What I Learned</div>
+        </div>
+        <div class="proj-step-body">
+          <div class="proj-learn-grid">
+            <div class="proj-learn-item">
+              <strong>Python GUI 응용프로그램 구현</strong>
+              <p>- 연구에 필요한 Welch's PSD 분석 도구를 직접 Python으로 설계·구현<br>- 반복적인 분석 작업을 자동화하여 연구 효율을 극대화한 실무 소프트웨어 구현 경험</p>
+            </div>
+            <div class="proj-learn-item">
+              <strong>영상처리 기반 신호 추출</strong>
+              <p>- EVM · Optical Flow · Camera Calibration 등 Computer Vision 알고리즘을 조합하여 구조물 진동 신호를 추출하는 전 과정 직접 구현</p>
+            </div>
+            <div class="proj-learn-item">
+              <strong>알고리즘 범용화 설계</strong>
+              <p>- PSD 기반 자동 주파수 선정으로 사람이 파라미터를 직접 설정하지 않아도 되는 시스템 구축<br>- 다양한 구조물에 적용 가능한 범용성 확보</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Project Detail Section 3 -->
+    <div class="portfolio-section" id="proj-detail-3">
+      <div class="portfolio-section-title">Project 3 — 짚라인 공중 놀이 시설용 무인 구난장비</div>
+
+      <!-- 프로젝트 헤더 -->
+      <table class="proj-info-table">
+        <tr><td class="pkey">기간</td><td>2022 – Dec. 2023 (BRITEC 재직 중)</td></tr>
+        <tr><td class="pkey">소속</td><td>주식회사 브리텍 (BRITEC Co., Ltd.) · R&amp;D Division</td></tr>
+        <tr><td class="pkey">역할</td><td>신제품 개발 총괄 — 설계 · 부품 조달 · 배선 · 배터리 제작 · 조립 · 테스트 전 공정 단독 주도</td></tr>
+        <tr><td class="pkey">결과</td><td>시제품 제작 완료 → 특허등록 10-2667228 (2024.05.14 등록)</td></tr>
+        <tr class="summary">
+          <td class="pkey">요약</td>
+          <td>- 짚라인 등 공중 놀이 시설에서 트롤리 고장 시 관리원 없이 원격으로 접근·구난할 수 있는 <strong>무인 구난장비 신제품 개발 프로젝트</strong><br>- AutoCAD 3D 설계부터 부품 주문제작, 18650 셀 스팟 용접을 통한 <strong>커스텀 배터리 팩</strong> 제작<br>- 배선, 조립까지 <strong>전 공정을 단독으로 주도</strong>하여 시제품 완성<br>- 특허 등록</td>
+        </tr>
+      </table>
+
+      <!-- 1. Background / Problem -->
+      <div class="proj-step-card">
+        <div class="proj-step-header">
+          <div class="proj-step-num">1</div>
+          <div class="proj-step-title">Background</div>
+        </div>
+        <div class="proj-step-body">
+          <ul class="proj-bullet-list">
+            <li>짚라인(Zip Line)은 고지대 양단 사이 와이어에 트롤리(도르래)를 걸어 탑승자가 이동하는 아웃도어 레포츠 시설로, 국내외 설치가 빠르게 증가하는 추세</li>
+            <li>트롤리가 주행 중 외부 충격·부품 불량 등으로 와이어 중간에 멈추는 사고가 빈번히 발생하며, 탑승자는 공중에 매달린 채 고립</li>
+            <li>기존 구난 방식은 관리원이 다른 트롤리를 이용해 직접 접근해야 했고, 접근까지 상당한 시간과 추가 인력이 소요</li>
+            <li>특히 경사가 급하거나 고지대 구간에서는 관리원의 접근 자체가 위험하거나 불가능한 상황도 발생</li>
+          </ul>
+          <div class="proj-img-grid-2" style="margin-top:20px;">
+            <div class="proj-img-wrap">
+              <img src="p3/img/1.%20완성%20모델링%20(1).png" alt="완성 3D 모델링 외관" />
+              <div class="proj-img-caption">Fig 1-1. AutoCAD 3D 완성 모델링 — 외관</div>
+            </div>
+            <div class="proj-img-wrap">
+              <img src="p3/img/1.%20완성%20모델링%20(2).png" alt="완성 3D 모델링 내부 기어" />
+              <div class="proj-img-caption">Fig 1-2. AutoCAD 3D 완성 모델링 — 체인·기어 구동계 내부</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2. Objective -->
+      <div class="proj-step-card">
+        <div class="proj-step-header">
+          <div class="proj-step-num">2</div>
+          <div class="proj-step-title">Objective</div>
+        </div>
+        <div class="proj-step-body">
+          <ul class="proj-bullet-list">
+            <li>무선 원격 제어로 와이어를 따라 자율 이동하여 고장난 트롤리에 접근할 수 있는 무인 구난장비 개발</li>
+            <li>선단의 인양고리(걸림후크)로 고장 트롤리와 자동 연결, 안전하게 견인·이동시켜 탑승자를 지상으로 이동시키는 구조</li>
+            <li>높이 조절 가이드휠 메커니즘으로 다양한 직경의 케이블/파이프에 호환 가능한 범용 설계 목표</li>
+            <li>회사의 기존 짚라인 사업 라인업에 추가할 신규 상품화 가능한 시제품 완성을 최종 목표로 설정</li>
+          </ul>
+          <div class="proj-img-wrap" style="margin-top:20px;">
+            <img src="p3/img/1.%20완성도면.png" alt="완성 도면" />
+            <div class="proj-img-caption">Fig 2. 완성 도면 — Pulley 걸이 · 기어 · 모터 체인 · 배터리 · 제어부 · 높이 조절 Bolt 구성</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3. My Role -->
+      <div class="proj-step-card">
+        <div class="proj-step-header">
+          <div class="proj-step-num">3</div>
+          <div class="proj-step-title">My Role</div>
+        </div>
+        <div class="proj-step-body">
+          <div class="proj-role-grid">
+            <div class="proj-role-item">
+              <div class="proj-role-icon">1</div>
+              <div>
+                <strong>AutoCAD 3D 설계 전담</strong>
+                <p>본체 하우징, 구동휠·기어·체인 구동계, 높이 조절 가이드휠 메커니즘 전체를 AutoCAD 3D로 직접 모델링 (2D 도면 작성)</p>
+              </div>
+            </div>
+            <div class="proj-role-item">
+              <div class="proj-role-icon">2</div>
+              <div>
+                <strong>부품 선정·조달 (주문제작 포함)</strong>
+                <p>구동모터(MY1016, 24VDC 250W), 기어, 체인, 구동휠, 제어 모듈 등 전 부품 스펙 결정 및 조달 (기성품 없는 부품은 직접 주문제작 발주)</p>
+              </div>
+            </div>
+            <div class="proj-role-item">
+              <div class="proj-role-icon">3</div>
+              <div>
+                <strong>커스텀 배터리 팩 직접 제작</strong>
+                <p>모듈 구동용 배터리는 18650 리튬이온 셀을 직접 구매, 셀 홀더로 배열 후 스팟 용접으로 커스텀 배터리 팩 제작</p>
+              </div>
+            </div>
+            <div class="proj-role-item">
+              <div class="proj-role-icon">4</div>
+              <div>
+                <strong>배선 설계 및 전기 배선 작업</strong>
+                <p>배선도 직접 작성. 모터 제어 모듈, RF 무선 수신기, 릴레이 등 전기 시스템 배선을 연결하고 정상 동작 확인</p>
+              </div>
+            </div>
+            <div class="proj-role-item">
+              <div class="proj-role-icon">5</div>
+              <div>
+                <strong>시제품 조립 및 구동 테스트</strong>
+                <p>전 부품 조립(용접 공정만 외부 의뢰) 후 실외 짚라인 케이블에 직접 걸어 원격 구동 테스트 수행 (정상 구동 확인 후 시제품 완성)</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="proj-img-grid-2" style="margin-top:20px;">
+            <div class="proj-img-wrap">
+              <img src="p3/img/2.%20모듈%20구동용%20배터리%20(직접%20제작).jpg" alt="직접 제작한 배터리 팩" class="img-h240" />
+              <div class="proj-img-caption">Fig 3-1. 직접 제작한 모듈 구동용 배터리 팩 — 18650 셀 스팟 용접</div>
+            </div>
+            <div class="proj-img-wrap">
+              <img src="p3/img/2.%20배선작업%20(1).jpg" alt="제어 모듈 배선" class="img-h240" />
+              <div class="proj-img-caption">Fig 3-2. 제어 모듈 배선 작업 — RF 수신기 · 릴레이 · 모터 드라이버 연결</div>
+            </div>
+          </div>
+          <div class="proj-img-grid-2" style="margin-top:16px;">
+            <div class="proj-img-wrap">
+              <img src="p3/img/2.%20배선작업%20(4).jpg" alt="전체 시스템 배선" />
+              <div class="proj-img-caption">Fig 3-3. 전체 시스템 배선 연결 — 모터·배터리·제어부 통합</div>
+            </div>
+            <div class="proj-img-wrap">
+              <img src="p3/img/2.%20모터.jpg" alt="구동 모터 MY1016" />
+              <div class="proj-img-caption">Fig 3-4. 구동 모터 MY1016 — 24VDC · 250W · 2,650RPM</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 4. Methods / Tech Stack -->
+      <div class="proj-step-card">
+        <div class="proj-step-header">
+          <div class="proj-step-num">4</div>
+          <div class="proj-step-title">Methods / Tech Stack</div>
+        </div>
+        <div class="proj-step-body">
+          <div class="proj-tech-section">
+            <div class="proj-tech-label">설계 도구</div>
+            <div class="proj-tech-grid">
+              <span class="proj-tech-tag highlight">AutoCAD 3D 모델링</span>
+              <span class="proj-tech-tag highlight">AutoCAD 2D 도면</span>
+              <span class="proj-tech-tag">Adobe Photoshop</span>
+            </div>
+          </div>
+          <div class="proj-tech-section">
+            <div class="proj-tech-label">구동계 하드웨어</div>
+            <div class="proj-tech-grid">
+              <span class="proj-tech-tag highlight">MY1016 DC 모터 (24V · 250W · 2,650RPM)</span>
+              <span class="proj-tech-tag">체인-기어 전동 구조 커스텀</span>
+              <span class="proj-tech-tag">구동휠 (케이블 그립)</span>
+              <span class="proj-tech-tag">높이 조절 슬라이딩 프레임</span>
+            </div>
+          </div>
+          <div class="proj-tech-section">
+            <div class="proj-tech-label">전원 시스템</div>
+            <div class="proj-tech-grid">
+              <span class="proj-tech-tag highlight">18650 셀 스팟 용접 커스텀 배터리 팩</span>
+              <span class="proj-tech-tag">24V 30,000mAh 리튬이온 (모터 구동용)</span>
+            </div>
+          </div>
+          <div class="proj-tech-section">
+            <div class="proj-tech-label">제어 시스템</div>
+            <div class="proj-tech-grid">
+              <span class="proj-tech-tag highlight">RF 무선 수신 모듈</span>
+              <span class="proj-tech-tag">릴레이 회로</span>
+              <span class="proj-tech-tag">모터 드라이버</span>
+              <span class="proj-tech-tag">4채널 리모컨 (A·B·C·D)</span>
+            </div>
+          </div>
+          <div class="proj-img-grid-2" style="margin-top:20px;">
+            <div class="proj-img-wrap">
+              <img src="p3/img/1.%20모터%20도면.png" alt="모터 도면" class="img-h240" />
+              <div class="proj-img-caption">Fig 4-1. 구동 모터 치수 도면</div>
+            </div>
+            <div class="proj-img-wrap">
+              <img src="p3/img/1.%20배선도.png" alt="배선도" class="img-h240" />
+              <div class="proj-img-caption">Fig 4-2. 배선도 — 배터리(b) · 모터(m) · 제어 모듈 이중 배전 구성</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 5. Results -->
+      <div class="proj-step-card">
+        <div class="proj-step-header">
+          <div class="proj-step-num">5</div>
+          <div class="proj-step-title">Results</div>
+        </div>
+        <div class="proj-step-body">
+          <div class="proj-achievement-grid" style="margin-bottom:24px; grid-template-columns:repeat(4,1fr);">
+            <div class="proj-achievement-item">
+              <div class="proj-achievement-num">시제품 완성</div>
+              <div class="proj-achievement-label">BRITEC 브랜드<br>실물 제품 완성</div>
+            </div>
+            <div class="proj-achievement-item">
+              <div class="proj-achievement-num">구동 검증</div>
+              <div class="proj-achievement-label">실외 케이블<br>원격 구동 성공</div>
+            </div>
+            <div class="proj-achievement-item">
+              <div class="proj-achievement-num">등록특허</div>
+              <div class="proj-achievement-label">10-2667228<br>(2024.05.14)</div>
+            </div>
+            <div class="proj-achievement-item">
+              <div class="proj-achievement-num">전 공정 단독</div>
+              <div class="proj-achievement-label">설계~조립~테스트<br>용접 제외 직접 수행</div>
+            </div>
+          </div>
+
+          <div class="proj-img-grid-2">
+            <div class="proj-img-wrap">
+              <img src="p3/img/3.%20제품%20조립.jpg" alt="제품 내부 조립" />
+              <div class="proj-img-caption">Fig 5-1. 제품 내부 조립 — 상단: 제어부 / 중단: 구동 모터 / 하단: 24V 배터리</div>
+            </div>
+            <div class="proj-img-wrap">
+              <img src="p3/img/5.%20시제품%20제작.jpg" alt="완성 시제품" />
+              <div class="proj-img-caption">Fig 5-2. 완성 시제품 (BRITEC Co., Ltd. 브랜드 부착) + 무선 리모컨</div>
+            </div>
+          </div>
+          <div class="proj-img-wrap" style="margin-top:16px;">
+            <img src="p3/img/4.%20시제품%20구동.jpg" alt="실외 케이블 구동 테스트" />
+            <div class="proj-img-caption">Fig 5-3. 실외 짚라인 케이블 구동 테스트 — 케이블 탑재 후 원격 이동 확인</div>
+          </div>
+
+          <!-- 특허 정보 -->
+          <div style="margin-top:20px; overflow-x:auto;">
+            <table class="ip-table">
+              <tr>
+                <th>구분</th><th>특허명</th><th>출원번호</th><th>등록번호</th><th>등록일</th><th>비고</th>
+              </tr>
+              <tr>
+                <td><span class="status-reg">등록</span></td>
+                <td>공중 놀이 시설용 무인 구난장비</td>
+                <td>10-2023-0186847</td>
+                <td><strong>10-2667228</strong></td>
+                <td>2024.05.14</td>
+                <td style="color:var(--gray); font-style:italic;">퇴사 후 회사에서 특허 출원</td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- 6. What I Learned / Relevance -->
+      <div class="proj-step-card">
+        <div class="proj-step-header">
+          <div class="proj-step-num">6</div>
+          <div class="proj-step-title">What I Learned</div>
+        </div>
+        <div class="proj-step-body">
+          <div class="proj-learn-grid">
+            <div class="proj-learn-item">
+              <strong>하드웨어 전 공정 독립 수행</strong>
+              <p>- 기계 설계(3D CAD) → 부품 조달 → 전기 배선 → 커스텀 배터리 제작 → 조립 → 테스트까지 용접을 제외한 전 공정을 단독으로 완수한 실무 경험</p>
+            </div>
+            <div class="proj-learn-item">
+              <strong>설계-실물 간 갭 해결 역량</strong>
+              <p>- 3D 모델과 실제 조립 공차·간섭 문제를 현장에서 직접 해결<br>- 이론 설계가 실물로 구현되는 과정에서 발생하는 현실적 문제에 대한 대응력 습득</p>
+            </div>
+            <div class="proj-learn-item">
+              <strong>커스텀 하드웨어 제작 경험</strong>
+              <p>- 기성품으로 해결 불가한 부품 도면 제작<br>- 배터리 팩(18650 셀 + 스팟 용접) 제작<br>- 부품 단위에서 시스템을 구성하는 하드웨어 통합 역량 확보</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Achievements -->
+    <div class="portfolio-section">
+      <div class="portfolio-section-title">Achievements</div>
+      <div style="background:var(--white); border-radius:10px; padding:32px 36px;
+           box-shadow:0 2px 12px rgba(0,0,0,.07); border-left:5px solid var(--navy);">
+        <p style="font-size:1rem; line-height:1.9; color:#333;">
+          3개의 핵심 프로젝트를 통해 <strong>AI 대리모델 구축, Computer Vision 기반 비접촉 계측,
+          하드웨어 신제품 개발</strong> 전반에 걸친 실질적 성과를 달성했습니다.<br>
+          원전 지진응답 AI 연구에서는 데이터 생성 자동화로 처리 기간을 <strong>75% 이상 단축</strong>하고
+          Transformer 기반 FRS 예측 <strong>R² 0.72</strong>를 달성했으며,
+          스마트폰 카메라 기반 보도육교 성능평가 연구에서는 4개 현장 전 지표
+          <strong>MAPE 7% 이내</strong>를 달성하여 <strong>ASCE JCCE에 제1저자 논문을 투고</strong>했습니다.
+        </p>
+      </div>
+    </div>
+
+  </div><!-- /#portfolio-content -->
+
+</div><!-- /.wrapper -->
+
+<footer>
+  <p><strong>나상일 · Sangil Na</strong> &nbsp;|&nbsp; billnin@naver.com &nbsp;|&nbsp; (+82) 10-3158-8461</p>
+  <p style="margin-top:8px;">Smart Construction Information Technology Lab, Sungkyunkwan University &nbsp;·&nbsp; SMARTINSIDE AI</p>
+</footer>
+
+<script>
+  /* ── 탭 전환 ── */
+  function switchTab(tab) {
+    var cvContent = document.getElementById('cv-content');
+    var portfolioContent = document.getElementById('portfolio-content');
+    var btnCv = document.getElementById('btn-cv');
+    var btnPortfolio = document.getElementById('btn-portfolio');
+    var projSubnav = document.getElementById('proj-subnav');
+    var cvSubnav = document.getElementById('cv-subnav');
+
+    if (tab === 'cv') {
+      cvContent.classList.add('active');
+      portfolioContent.classList.remove('active');
+      btnCv.classList.add('active');
+      btnPortfolio.classList.remove('active');
+      cvSubnav.classList.add('visible');
+      projSubnav.classList.remove('visible');
+      history.replaceState(null, '', '#cv');
+    } else {
+      portfolioContent.classList.add('active');
+      cvContent.classList.remove('active');
+      btnPortfolio.classList.add('active');
+      btnCv.classList.remove('active');
+      projSubnav.classList.add('visible');
+      cvSubnav.classList.remove('visible');
+      history.replaceState(null, '', '#portfolio');
+    }
+  }
+
+  /* ── CV 섹션 바로가기 ── */
+  function scrollToSection(id) {
+    var target = document.getElementById(id);
+    if (target) {
+      var navHeight = document.querySelector('nav').offsetHeight;
+      var subnavHeight = document.getElementById('cv-subnav').offsetHeight;
+      var top = target.getBoundingClientRect().top + window.pageYOffset - navHeight - subnavHeight - 24;
+      window.scrollTo({ top: top, behavior: 'smooth' });
+    }
+  }
+
+  /* ── 프로젝트 섹션 바로가기 ── */
+  function scrollToProject(id) {
+    switchTab('portfolio');
+    setTimeout(function () {
+      var target = document.getElementById(id);
+      if (target) {
+        var navHeight = document.querySelector('nav').offsetHeight;
+        var subnavHeight = document.getElementById('proj-subnav').offsetHeight;
+        var top = target.getBoundingClientRect().top + window.pageYOffset - navHeight - subnavHeight - 24;
+        window.scrollTo({ top: top, behavior: 'smooth' });
+      }
+    }, 50);
+  }
+
+  /* ── URL 해시 기반 초기 탭 선택 ── */
+  (function () {
+    var hash = window.location.hash;
+    if (hash === '#cv') {
+      switchTab('cv');
+    } else {
+      switchTab('portfolio');
+    }
+  })();
+
+  /* ── nav 링크 클릭 시 CV 탭 활성화 후 섹션 스크롤 ── */
+  document.querySelectorAll('.nav-cv-link').forEach(function (link) {
+    link.addEventListener('click', function (e) {
+      e.preventDefault();
+      var targetId = this.getAttribute('data-target');
+      switchTab('cv');
+      setTimeout(function () {
+        var target = document.getElementById(targetId);
+        if (target) {
+          var navHeight = document.querySelector('nav').offsetHeight;
+          var top = target.getBoundingClientRect().top + window.pageYOffset - navHeight - 16;
+          window.scrollTo({ top: top, behavior: 'smooth' });
+        }
+      }, 50);
+    });
+  });
+</script>
+
+</body>
+</html>
